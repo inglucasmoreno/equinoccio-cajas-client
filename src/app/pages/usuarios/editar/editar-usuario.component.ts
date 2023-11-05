@@ -122,10 +122,12 @@ export class EditarUsuarioComponent implements OnInit {
     // Se agregan los permisos
     let data: any = this.usuarioForm.value;
 
-    if(role !== 'ADMIN_ROLE') data.permisos = this.adicionarPermisos(); // Se adicionan los permisos a la data para actualizacion
-    else data.permisos = [];
+    // if(role !== 'ADMIN_ROLE') data.permisos = this.adicionarPermisos(); // Se adicionan los permisos a la data para actualizacion
+    // else data.permisos = [];
 
     this.alertService.loading();
+
+    console.log(data);
 
     this.usuariosService.actualizarUsuario(this.id, data).subscribe(() => {
       this.alertService.close();
