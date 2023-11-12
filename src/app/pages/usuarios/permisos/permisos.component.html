@@ -26,7 +26,7 @@
   <div class="p-2">
 
 
-    <div (click)="abrirCerrarSistema()"
+    <div *ngIf="usuario.role !== 'EMPLOYEE_ROLE'" (click)="abrirCerrarSistema()"
       class="p-2 cursor-pointer flex items-center justify-between bg-gray-100 border border-gray-400">
       <p class="font-semibold"> Permisos de sistema </p>
       <svg *ngIf="muestraSistema" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -57,24 +57,6 @@
           </svg>
         </div>
         <div *ngIf="muestraSecciones.ventas">
-          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
-            <p class="font-semibold"> Presupuestos </p>
-            <select [(ngModel)]="permisosSecciones.PRESUPUESTOS"
-              class="p-2 w-max text-sm border border-gray-400 rounded">
-              <option value="PRESUPUESTOS_NOT_ACCESS"> Sin acceso </option>
-              <option value="PRESUPUESTOS_READ"> Solo lectura </option>
-              <option value="PRESUPUESTOS_ALL"> Permisos totales </option>
-            </select>
-          </div> -->
-          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
-            <p class="font-semibold"> Ventas directas </p>
-            <select [(ngModel)]="permisosSecciones.VENTAS_DIRECTAS"
-              class="p-2 w-max text-sm border border-gray-400 rounded">
-              <option value="VENTAS_DIRECTAS_NOT_ACCESS"> Sin acceso </option>
-              <option value="VENTAS_DIRECTAS_READ"> Solo lectura </option>
-              <option value="VENTAS_DIRECTAS_ALL"> Permisos totales </option>
-            </select>
-          </div> -->
           <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Ventas propias </p>
             <select [(ngModel)]="permisosSecciones.VENTAS_PROPIAS"
@@ -114,7 +96,7 @@
       </div>
 
       <!-- Seccion - Compras -->
-<!-- 
+      <!-- 
       <div class="text-sm mt-2">
         <div (click)="abrirCerrarSeccion('compras')"
           class="p-2 cursor-pointer flex items-center justify-between bg-gray-100 border border-gray-400">
@@ -304,22 +286,24 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 15.75l7.5-7.5 7.5 7.5" />
         </svg>
       </div>
-      <div *ngIf="muestraCajas" class="p-2">
+      <div *ngIf="muestraCajas" class="p-2 max-h-96 overflow-auto">
         <div class="p-2 border-b-2 flex items-center justify-between" *ngFor="let caja of cajas">
           <p class="py-2 font-semibold"> {{ caja?.descripcion }} </p>
           <div (click)="cambiarPermisoCaja(caja._id.toString())"
             [ngClass]="{'bg-green-100':permisosCajas.includes(caja._id.toString())}"
             class="p-2 w-10 h-10 flex items-center justify-center cursor-pointer bg-red-100 border border-gray-500 rounded">
-            <svg *ngIf="permisosCajas.includes(caja._id.toString())" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-700 font-semibold">
+            <svg *ngIf="permisosCajas.includes(caja._id.toString())" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-green-700 font-semibold">
               <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
             </svg>
-            <svg *ngIf="!permisosCajas.includes(caja._id.toString())" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-700 font-semibold">
+            <svg *ngIf="!permisosCajas.includes(caja._id.toString())" xmlns="http://www.w3.org/2000/svg" fill="none"
+              viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-red-700 font-semibold">
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>            
+            </svg>
           </div>
         </div>
       </div>
     </div>
-
+    
   </div>
 </div>

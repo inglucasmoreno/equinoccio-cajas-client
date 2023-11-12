@@ -41,9 +41,12 @@ export class LoginComponent implements OnInit {
       return;
     }  
     this.alertService.loading();
-    this.authService.login(this.loginForm.value).subscribe(()=> {
+    this.authService.login(this.loginForm.value).subscribe(({ user })=> {
       this.alertService.close();     
-      this.router.navigateByUrl('dashboard/home');
+      console.log(user.role);
+      if(user.role === 'EMPLOYEE_ROLE') this.router.navigateByUrl('dashboard/gastos');
+      else this.router.navigateByUrl('dashboard/home');
+      
     },({error}) => {
       this.loginForm.setValue({ username: '', password: '' });
       this.alertService.errorApi(error.message);  

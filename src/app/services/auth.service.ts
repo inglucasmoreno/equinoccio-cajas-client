@@ -25,7 +25,7 @@ export class AuthService {
   login( data: LoginForm ): Observable<any>{
     return this.http.post(`${baseUrl}/auth/login`, data)
                     .pipe(
-                      tap( ({token}) => {
+                      tap( ({ token }) => {
                         const tokenSend = 'bearer ' + token;
                         localStorage.setItem('token', tokenSend);
                       })

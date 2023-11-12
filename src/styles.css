@@ -7,6 +7,10 @@
 
 /* Para evitar cuadro azul en celular al hacer clic */
 
+* {
+    font-family: 'Nunito Sans', sans-serif;
+}
+
 a {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }

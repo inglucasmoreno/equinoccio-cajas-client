@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 })
 export class AlertService {
 
-  public colorButton: string = '#429996';
+  public colorButton: string = '#047857';
 
   constructor() { }
   

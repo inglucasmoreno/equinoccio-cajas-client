@@ -80,7 +80,7 @@ export class PermisosComponent implements OnInit {
   }
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private usuariosService: UsuariosService,
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
