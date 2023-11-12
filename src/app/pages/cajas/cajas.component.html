@@ -31,7 +31,7 @@
             </select>
         </div>
         <button (click)="reporteExcel()"
-            class="border bg-secondaryColor w-full p-2 rounded focus:outline-none text-white mt-3"> Generar reporte
+            class="border bg-green-700 hover:bg-green-600 w-full p-2 rounded focus:outline-none text-white mt-3"> Generar reporte
         </button>
     </div>
 </app-modal>
@@ -87,7 +87,7 @@
 
     <div class="pb-2 px-2 mt-2 text-sm">
         <button (click)="generarMovimientoInterno()"
-            class="border focus:outline-none bg-gray-100 border-gray-400 p-2 rounded w-full mt-2 hover:text-secondaryColor font-semibold">
+            class="border focus:outline-none bg-green-700 border-green-700 text-white p-2 rounded w-full mt-2 hover:bg-green-600">
             Generar movimiento
         </button>
     </div>
@@ -158,10 +158,10 @@
         </div>
         <div class="px-2 pb-2">
             <button *ngIf="estadoFormulario == 'crear'" (click)="nuevaCaja()"
-                class="bg-gray-100 focus:outline-none hover:text-secondaryColor shadow text-gray-800 w-full border border-gray-400 text-sm font-semibold p-2 rounded mt-4">
+                class="bg-green-700 focus:outline-none hover:bg-green-600 shadow text-white w-full border border-green-700 text-sm  p-2 rounded mt-4">
                 Crear caja </button>
             <button *ngIf="estadoFormulario == 'editar'" (click)="actualizarCaja()"
-                class="bg-gray-100 focus:outline-none hover:text-secondaryColor shadow text-gray-800 w-full border border-gray-400 text-sm font-semibold p-2 rounded mt-4">
+                class="bg-green-700 focus:outline-none hover:bg-green-600 shadow text-white w-full border border-green-700 text-sm  p-2 rounded mt-4">
                 Actualizar caja </button>
         </div>
     </div>

@@ -1,5 +1,5 @@
 
-<!-- Modal: Importar medicamentos -->
+<!-- Modal: Importar productos -->
 <app-modal [showModal]="showModalImportarProductos">
     <div class="bg-primary-800 px-3 py-2 rounded-t flex items-center justify-between">
         <h1 class="text-white md:text-xl"> Importando productos </h1>
@@ -12,7 +12,7 @@
     <div class="p-2">
         <p class="text-sm text-gray-500"> <span class="text-red-500"> * </span> El archivo seleccionado debe ser un excel </p>
         <input [(ngModel)]="file" (change)="capturarArchivo($event)" type="file" class="mt-2 text-sm">
-        <button (click)="importarProductos()" class="bg-secondaryColor focus:outline-none text-sm mt-3 text-white p-2 rounded w-full shadow">
+        <button (click)="importarProductos()" class="bg-green-700 hover:bg-green-600 focus:outline-none text-sm mt-3 text-white p-2 rounded w-full shadow">
             Importar productos
         </button>
     </div>
@@ -118,8 +118,8 @@
         </div>   
     </div>
     <div class="px-2 pb-2">
-        <button *ngIf="estadoFormulario == 'crear'" (click)="nuevoProducto()" class="bg-gray-100 focus:outline-none hover:text-secondaryColor shadow text-gray-800 w-full border border-gray-400 font-semibold p-2 text-sm rounded mt-4"> Crear producto </button>
-        <button *ngIf="estadoFormulario == 'editar'" (click)="actualizarProducto()" class="bg-gray-100 focus:outline-none hover:text-secondaryColor shadow text-gray-800 w-full border border-gray-400 font-semibold p-2 text-sm rounded mt-4"> Actualizar producto </button>
+        <button *ngIf="estadoFormulario == 'crear'" (click)="nuevoProducto()" class="bg-green-700 focus:outline-none shadow text-white w-full border border-green-700 hover:bg-green-600 p-2 text-sm rounded mt-4"> Crear producto </button>
+        <button *ngIf="estadoFormulario == 'editar'" (click)="actualizarProducto()" class="bg-green-700 focus:outline-none shadow text-white w-full border border-green-700 hover:bg-green-600 p-2 text-sm rounded mt-4"> Actualizar producto </button>
     </div>
   </div>
 </app-modal>

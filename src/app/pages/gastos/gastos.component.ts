@@ -62,7 +62,7 @@ export class GastosComponent implements OnInit {
     private gastosService: GastosService,
     private tiposGastosService: TiposGastosService,
     private cajasService: CajasService,
-    private authService: AuthService,
+    public authService: AuthService,
     private alertService: AlertService,
     private dataService: DataService) { }
 

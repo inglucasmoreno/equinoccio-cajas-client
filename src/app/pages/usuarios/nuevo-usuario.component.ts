@@ -106,8 +106,10 @@ export class NuevoUsuarioComponent implements OnInit {
     // Se agregan los permisos
     let data: any = this.usuarioForm.value;
 
-    if (role === 'USER_ROLE') data.permisos = this.adicionarPermisos();
-    else data.permisos = [];
+    // if (role === 'USER_ROLE') data.permisos = this.adicionarPermisos();
+    // else data.permisos = [];
+
+    if(role === 'EMPLOYEE_ROLE') data.permisos = ['GASTOS_NAV', 'GASTOS_ALL'];
 
     this.alertService.loading();  // Comienzo de loading
 

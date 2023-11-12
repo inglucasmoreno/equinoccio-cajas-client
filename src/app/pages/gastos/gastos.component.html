@@ -87,7 +87,7 @@
         </div>
         <div class="px-2 pb-2">
             <button *ngIf="estadoFormulario == 'crear'" (click)="nuevoGasto()"
-                class="bg-gray-100 focus:outline-none hover:text-secondaryColor text-sm shadow text-gray-800 w-full border border-gray-400 font-semibold p-2 rounded mt-4">
+                class="bg-green-700 focus:outline-none hover:bg-green-600 text-sm shadow text-white w-full border border-green-700  p-2 rounded mt-4">
                 Crear gasto </button>
         </div>
     </div>
@@ -105,7 +105,7 @@
                         </h2>
                         <p> Total de gastos: {{ totalItems }} </p>
                     </div>
-                    <div *ngIf="permisos.all">
+                    <div *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'">
                         <button title="Nuevo gasto" (click)="abrirModal('crear')"
                             class="p-2 border mr-3 focus:outline-none hover:text-secondaryColor border-gray-300 bg-white rounded shadow">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
@@ -366,7 +366,7 @@
                                     <td
                                         class="px-5 py-2 border-b border-gray-200 text-xs text-center">
                                         <span class="flex items-center justify-center text-gray-900 whitespace-no-wrap">
-                                            <app-boton-tabla *ngIf="permisos.all" (click)="altaBajaGasto(gasto)" [title]="gasto.activo ? 'Baja de gasto' : 'Alta de gasto'">
+                                            <app-boton-tabla *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'" (click)="altaBajaGasto(gasto)" [title]="gasto.activo ? 'Baja de gasto' : 'Alta de gasto'">
                                                 <svg *ngIf="gasto.activo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>

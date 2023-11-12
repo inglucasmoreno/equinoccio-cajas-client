@@ -153,6 +153,8 @@ export class EditarUsuarioComponent implements OnInit {
     // Se agregan los permisos
     let data: any = this.usuarioForm.value;
 
+    if(role === 'EMPLOYEE_ROLE') data.permisos = ['GASTOS_NAV', 'GASTOS_ALL'];
+
     // if(role !== 'ADMIN_ROLE') data.permisos = this.adicionarPermisos(); // Se adicionan los permisos a la data para actualizacion
     // else data.permisos = [];
 

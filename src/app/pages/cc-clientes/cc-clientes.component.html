@@ -22,7 +22,7 @@
           <option value=""> Todas las cuentas corrientes </option>
         </select>
       </div>
-      <button (click)="reporteExcel()" class="border bg-secondaryColor w-full p-2 rounded focus:outline-none text-white mt-3"> Generar reporte </button>   
+      <button (click)="reporteExcel()" class="border bg-green-700 hover:bg-green-600 w-full p-2 rounded focus:outline-none text-white mt-3"> Generar reporte </button>   
     </div>
 </app-modal>
 
@@ -79,7 +79,7 @@
         </div>   
     </div>
     <div class="px-2 pb-2">
-        <button *ngIf="estadoFormulario == 'crear'" (click)="nuevaCuentaCorriente()" class="bg-gray-100 focus:outline-none hover:text-secondaryColor shadow text-gray-800 w-full border text-sm border-gray-400 font-semibold p-2 rounded mt-2"> Crear cuenta corriente </button>
+        <button *ngIf="estadoFormulario == 'crear'" (click)="nuevaCuentaCorriente()" class="bg-green-700 focus:outline-none hover:bg-green-600 shadow text-white w-full border text-sm border-green-700 p-2 rounded mt-2"> Crear cuenta corriente </button>
     </div>
   </div>
 </app-modal>

@@ -74,7 +74,7 @@
   </div>
 
   <div class="px-2 pb-2">
-    <button (click)="nuevoCliente()" class="p-2 text-sm bg-secondaryColor mt-4 font-semibold focus:outline-none text-white rounded shadow w-full">
+    <button (click)="nuevoCliente()" class="p-2 text-sm bg-green-700 hover:bg-green-600 mt-4 focus:outline-none text-white rounded shadow w-full">
       Crear cliente
     </button>
   </div>
@@ -242,7 +242,7 @@
       </div>
     </div>
     <div class="px-2 pb-2">
-      <button *ngIf="formas_pago.length > 0 || cheques.length > 0" (click)="crearVentaPropia()" class="p-2 mt-4 rounded focus:outline-none border border-gray-400 font-semibold text-sm bg-gray-100 hover:text-secondaryColor w-full">
+      <button *ngIf="formas_pago.length > 0 || cheques.length > 0" (click)="crearVentaPropia()" class="p-2 mt-4 rounded focus:outline-none border border-green-700 text-white text-sm bg-green-700 hover:bg-green-600 w-full">
         Completar venta
       </button>
     </div>
@@ -515,8 +515,8 @@
           <option value="Propia"> Propia </option>
         </select>
     </div>
-    <button (click)="seleccionarTipoCliente()" class="mt-4 ml-2 bg-primary-800 focus:outline-none text-white hover:bg-secondaryColor transform duration-300 rounded py-2 px-4"> Comenzar </button>    
-    <img class="mx-auto w-2/3 mt-5" src="assets/venta_generar.svg">
+    <button (click)="seleccionarTipoCliente()" class="mt-4 ml-2 bg-green-700 focus:outline-none text-white hover:bg-green-600 transform duration-300 rounded py-2 px-4"> Comenzar </button>    
+    <img class="mx-auto w-1/2 mt-5" src="assets/venta_generar.svg">
   </div>
 
   <!-- Etapa - Cliente -->
@@ -571,7 +571,7 @@
 
     <div class="flex items-center w-80 md:w-96 justify-center mx-auto text-sm mt-4">
       <button (click)="regresar('clientes')" class="bg-primary-800 w-1/2 text-white p-2 rounded focus:outline-none"> Regresar </button>
-      <button (click)="seleccionarClienteVenta()" class="bg-secondaryColor w-1/2 text-white p-2 ml-2 rounded focus:outline-none"> Continuar </button>
+      <button (click)="seleccionarClienteVenta()" class="bg-green-700 hover:bg-green-600 w-1/2 text-white p-2 ml-2 rounded focus:outline-none"> Continuar </button>
     </div>
 
   </div>
@@ -602,7 +602,7 @@
     <!-- Listado de productos -->
     <div class="text-sm">
       <p *ngIf="productosVenta.length === 0" class="text-primary-800 mt-2"> No hay productos cargados en esta venta </p>
-      <button (click)="buscarProductos()" *ngIf="productosVenta.length === 0" class="bg-secondaryColor focus:outline-none text-white p-2 rounded mt-2">
+      <button (click)="buscarProductos()" *ngIf="productosVenta.length === 0" class="bg-green-700 border border-green-700 hover:bg-green-600 focus:outline-none text-white p-2 rounded mt-2">
         Buscar productos
       </button>
       <div class="mt-2" *ngIf="productosVenta.length !== 0">
