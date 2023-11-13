@@ -45,7 +45,7 @@ export class EditarUsuarioComponent implements OnInit {
 
   // Usuario
   public id: string;
-  public usuario: Usuario;
+  public usuario: any;
   public usuarioForm: FormGroup;
 
   constructor(private router: Router,
@@ -226,17 +226,37 @@ export class EditarUsuarioComponent implements OnInit {
     }
 
     this.alertService.loading();
+    
     const data = {
       usuario: this.id,
       caja: this.cajaSeleccionada,
       creatorUser: this.authService.usuario.userId,
       updatorUser: this.authService.usuario.userId,
     };
+    
     this.cajasUsuariosService.nuevaCajaUsuario(data).subscribe({
       next: ({ cajaUsuario }) => {
         this.cajaUsuario = cajaUsuario;
-        this.showModalCajaUsuario = false;
-        this.alertService.success('Caja asignada correctamente');
+
+        // Se le asigna permiso de caja si no lo tiene al usuario
+        if(!this.usuario.permisos_cajas.includes(this.cajaSeleccionada)){
+          
+          this.usuario.permisos_cajas.push(this.cajaSeleccionada);
+  
+          this.usuariosService.actualizarUsuario(this.id, {
+            permisos_cajas: this.usuario.permisos_cajas
+          }).subscribe({
+            next: () => {
+              this.showModalCajaUsuario = false;
+              this.alertService.success('Caja asignada correctamente');
+            }, error: () => this.alertService.errorApi('Error al actualizar los permisos de la caja')
+          });
+
+        }else{
+          this.alertService.success('Caja asignada correctamente');
+          this.showModalCajaUsuario = false;
+        }
+
       }, error: ({ error }) => this.alertService.errorApi(error.message)
     });
   }
@@ -249,8 +269,14 @@ export class EditarUsuarioComponent implements OnInit {
           this.alertService.loading();
           this.cajasUsuariosService.eliminarCajaUsuario(this.cajaUsuario._id).subscribe({
             next: () => {
-              this.cajaUsuario = null;
-              this.alertService.success('Caja desvinculada correctamente');
+              const nuevosPermisos = this.usuario.permisos_cajas.filter(caja => caja !== this.cajaUsuario.caja._id);
+              this.usuario.permisos_cajas = nuevosPermisos;
+              this.usuariosService.actualizarUsuario(this.id, { permisos_cajas: nuevosPermisos }).subscribe({
+                next: () => {
+                  this.cajaUsuario = null;
+                  this.alertService.success('Caja desvinculada correctamente');
+                }, error: () => this.alertService.errorApi('Error al actualizar los permisos de la caja')
+              })
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
         }

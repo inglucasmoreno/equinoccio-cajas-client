@@ -13,6 +13,7 @@ import { itemsTesoreria } from './items-tesoreria';
 import { itemsTerceros } from './items-terceros';
 import { itemsGastos } from './items-gastos';
 import { itemsPagos } from './items-pagos';
+import { AlertService } from 'src/app/services/alert.service';
 
 @Component({
   selector: 'app-header',
@@ -54,9 +55,11 @@ export class HeaderComponent implements OnInit {
   public permiso_usuarios = true;
 
   constructor(public authService: AuthService,
+    public alertService: AlertService,
     public dataService: DataService) { }
 
   ngOnInit(): void {
+    
     this.items = items;
     this.itemsProductos = itemsProductos;
     this.itemsPresupuestos = itemsPresupuestos;
@@ -69,6 +72,9 @@ export class HeaderComponent implements OnInit {
     this.itemsTerceros = itemsTerceros;
     this.itemsConfiguraciones = itemsConfiguraciones;
     this.itemsGastos = itemsGastos;
+
+    this.authService.getCaja();
+
   }
 
   // Abrir/Cerrar navegacion
