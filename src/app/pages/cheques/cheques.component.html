@@ -186,10 +186,10 @@
             <select [(ngModel)]="cajaSeleccionada"
                 class="p-2 w-full border focus:outline-none mt-2 border-gray-400 rounded">
                 <option value=""> Seleccionar caja </option>
-                <option *ngFor="let caja of cajas" [value]="caja._id"> {{ caja.descripcion }} </option>
+                <option [ngClass]="{'bg-green-100 font-semibold': this.authService.caja && this.authService.caja._id === caja._id}" *ngFor="let caja of cajas" [value]="caja._id"> {{ caja.descripcion }} {{ (this.authService.caja && this.authService.caja._id === caja._id) ? ' - [ MI CAJA ]' : '' }} </option>
             </select>
             <button (click)="cobrarCheque()"
-                class="p-2 mt-2 focus:outline-none font-semibold rounded w-full border border-green-700 hover:bg-green-600 bg-green-700 text-white">
+                class="p-2 mt-2 focus:outline-none rounded w-full border border-green-700 hover:bg-green-600 bg-green-700 text-white">
                 Cobrar cheque
             </button>
         </div>
@@ -287,7 +287,7 @@
                 Ingresar cheque </button>
             <button *ngIf="estadoFormulario == 'editar' && chequeSeleccionado.estado === 'Creado'"
                 (click)="actualizarCheque()"
-                class="bg-secondaryColor text-white text-sm focus:outline-none shadow w-full font-semibold p-2 rounded mt-4">
+                class="bg-green-700 hover:bg-green-600 text-white text-sm focus:outline-none shadow w-full p-2 rounded mt-4">
                 Actualizar cheque </button>
         </div>
     </div>

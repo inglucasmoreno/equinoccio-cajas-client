@@ -67,7 +67,7 @@ export class MovimientosInternosComponent implements OnInit {
 
   constructor(
     private movimientosInternosService: MovimientosInternosService,
-    private authService: AuthService,
+    public authService: AuthService,
     private cajasService: CajasService,
     private alertService: AlertService,
     private dataService: DataService

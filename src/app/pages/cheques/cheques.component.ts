@@ -72,7 +72,7 @@ export class ChequesComponent implements OnInit {
   }
 
   constructor(private chequesService: ChequesService,
-    private authService: AuthService,
+    public authService: AuthService,
     private cajasService: CajasService,
     private bancosService: BancosService,
     private alertService: AlertService,

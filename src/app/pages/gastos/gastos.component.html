@@ -28,7 +28,7 @@
                     <select [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.caja"
                         class="py-2 mt-1 border-b-2 border-gray-300 tranform duration-500 focus:border-secondaryColor outline-none w-full text-gray-800">
                         <option value=""> Seleccionar caja </option>
-                        <option [value]="caja._id" *ngFor="let caja of cajas"> {{ caja.descripcion }} </option>
+                        <option [ngClass]="{'bg-red-100 font-semibold': this.authService.caja && this.authService.caja._id === caja._id}" [value]="caja._id" *ngFor="let caja of cajas"> {{ caja.descripcion }} {{ (this.authService.caja && this.authService.caja._id === caja._id) ? ' - [ MI CAJA ]' : '' }} </option>
                     </select>
                 </div>
                 <div class="md:w-1/2 md:ml-2 mt-4 md:mt-0">

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CajasService } from 'src/app/services/cajas.service';
+import { CajasUsuariosService } from 'src/app/services/cajas-usuarios.service';
 
 @Component({
   selector: 'app-permisos',
@@ -49,6 +50,8 @@ export class PermisosComponent implements OnInit {
   public muestraCajas = false;
   public muestraSistema = false;
 
+  public cajaPrincipalUsuario: any = null;
+
   public cajas = [];
 
   public permisosCajas = [];
@@ -82,6 +85,7 @@ export class PermisosComponent implements OnInit {
   constructor(
     public authService: AuthService,
     private usuariosService: UsuariosService,
+    private cajasUsuariosService: CajasUsuariosService,
     private alertService: AlertService,
     private activatedRoute: ActivatedRoute,
     private cajasService: CajasService
@@ -108,7 +112,12 @@ export class PermisosComponent implements OnInit {
         this.cajasService.listarCajas().subscribe({
           next: ({cajas}) => {
             this.cajas = cajas;
-            this.alertService.close();
+            this.cajasUsuariosService.getCajaUsuarioPorUsuario(this.idUsuario).subscribe({
+              next: ({ cajaUsuario }) => { 
+                this.cajaPrincipalUsuario = cajaUsuario && cajaUsuario.caja;
+                this.alertService.close();
+              }, error: ({ error }) => this.alertService.errorApi(error.message)
+            });
           }, error: ({ error }) => this.alertService.errorApi(error.message)
         })
       },

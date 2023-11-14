@@ -26,7 +26,7 @@
   <div class="p-2">
 
 
-    <div *ngIf="usuario.role !== 'EMPLOYEE_ROLE'" (click)="abrirCerrarSistema()"
+    <div *ngIf="usuario?.role !== 'EMPLOYEE_ROLE'" (click)="abrirCerrarSistema()"
       class="p-2 cursor-pointer flex items-center justify-between bg-gray-100 border border-gray-400">
       <p class="font-semibold"> Permisos de sistema </p>
       <svg *ngIf="muestraSistema" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -287,9 +287,12 @@
         </svg>
       </div>
       <div *ngIf="muestraCajas" class="p-2 max-h-96 overflow-auto">
-        <div class="p-2 border-b-2 flex items-center justify-between" *ngFor="let caja of cajas">
-          <p class="py-2 font-semibold"> {{ caja?.descripcion }} </p>
-          <div (click)="cambiarPermisoCaja(caja._id.toString())"
+        <div [ngClass]="{'bg-gray-100':cajaPrincipalUsuario && (caja._id === cajaPrincipalUsuario._id)}" class="p-2 border-b-2 flex items-center justify-between" *ngFor="let caja of cajas">
+          <div>
+            <p class="font-semibold"> {{ caja?.descripcion }} </p>
+            <p *ngIf="cajaPrincipalUsuario && (caja._id === cajaPrincipalUsuario._id)" class="py-1 mt-1 px-3 bg-green-800 text-white text-xs rounded-full w-max"> Caja de usuario </p>
+          </div>
+          <div (click)="cajaPrincipalUsuario && (caja._id === cajaPrincipalUsuario._id) ? null : cambiarPermisoCaja(caja._id.toString())"
             [ngClass]="{'bg-green-100':permisosCajas.includes(caja._id.toString())}"
             class="p-2 w-10 h-10 flex items-center justify-center cursor-pointer bg-red-100 border border-gray-500 rounded">
             <svg *ngIf="permisosCajas.includes(caja._id.toString())" xmlns="http://www.w3.org/2000/svg" fill="none"

@@ -92,7 +92,7 @@ export class NuevoCobroComponent implements OnInit {
   public cajas: any[] = [];
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private dataService: DataService,
     private ventasPropiasProductosService: VentasPropiasProductosService,
     private ventasPropiasChequesService: VentasPropiasChequesService,

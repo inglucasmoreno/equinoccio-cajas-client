@@ -31,6 +31,9 @@ export class NuevoUsuarioComponent implements OnInit {
     productos: 'PRODUCTOS_NOT_ACCESS'
   };
 
+  // Permisos de caja - Usuario
+  public permisos_cajas = [];
+
   // Cajas
   public cajas: any[] = [];
   public cajaSeleccionada: any = "";
@@ -104,12 +107,15 @@ export class NuevoUsuarioComponent implements OnInit {
     }
 
     // Se agregan los permisos
-    let data: any = this.usuarioForm.value;
+    let data: any = {
+      ...this.usuarioForm.value,
+      permisos_cajas: this.permisos_cajas
+    };
 
     // if (role === 'USER_ROLE') data.permisos = this.adicionarPermisos();
     // else data.permisos = [];
 
-    if(role === 'EMPLOYEE_ROLE') data.permisos = ['GASTOS_NAV', 'GASTOS_ALL'];
+    if (role === 'EMPLOYEE_ROLE') data.permisos = ['GASTOS_NAV', 'GASTOS_ALL'];
 
     this.alertService.loading();  // Comienzo de loading
 
@@ -180,6 +186,7 @@ export class NuevoUsuarioComponent implements OnInit {
     this.alertService.loading();
     this.cajasService.nuevaCaja(this.nuevaCaja).subscribe({
       next: ({ caja }) => {
+        this.permisos_cajas.push(caja._id);
         this.cajas.unshift(caja);
         this.cajaSeleccionada = caja._id;
         this.cajaSeleccionadaFinal = caja;
@@ -200,15 +207,22 @@ export class NuevoUsuarioComponent implements OnInit {
 
     this.alertService.loading();
 
+    // Se verifica si la caja ya esta asignada a otro usuario
     this.cajasUsuariosService.getCajaUsuarioPorCaja(this.cajaSeleccionada).subscribe({
       next: ({ cajaUsuario }) => {
+
         if (cajaUsuario) {
           this.alertService.errorApi('La caja ya esta asignada a otro usuario');
           return;
         }
+
+        // Se el permiso de caja al usuario
+        this.permisos_cajas.push(this.cajaSeleccionada);
+
         this.cajaSeleccionadaFinal = this.cajas.find(caja => caja._id === this.cajaSeleccionada);
         this.showModalCajaUsuario = false;
         this.alertService.close();
+
       }, error: ({ error }) => this.alertService.errorApi(error.message)
     });
 
@@ -229,8 +243,13 @@ export class NuevoUsuarioComponent implements OnInit {
   }
 
   desvincularCaja(): void {
+
+    // Se elimina el permiso de caja al usuario
+    this.permisos_cajas = this.permisos_cajas.filter(caja => caja !== this.cajaSeleccionada);
+
     this.cajaSeleccionadaFinal = null;
     this.cajaSeleccionada = '';
+
   }
 
 

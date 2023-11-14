@@ -153,7 +153,7 @@
       <div class="mt-2 md:flex md:items-center w-full">
         <select [disabled]="flagCC" (change)="seleccionandoFormaPago()" [(ngModel)]="forma_pago" class="p-2 w-full focus:outline-none md:w-1/2 rounded border border-gray-400">
           <option value=""> Seleccionar forma de pago </option>
-          <option *ngFor="let caja of cajas" [value]="caja._id"> {{ caja.descripcion }} </option>
+          <option [ngClass]="{'bg-green-100 font-semibold': this.authService.caja && this.authService.caja._id === caja._id}" *ngFor="let caja of cajas" [value]="caja._id"> {{ caja.descripcion }} {{ (this.authService.caja && this.authService.caja._id === caja._id) ? ' - [ MI CAJA ]' : '' }} </option>
           <option *ngIf="estadoCuentaCorriente === 'Tiene' && cuenta_corriente.activo && (formas_pago.length === 0 && cheques.length === 0)" value="cuenta_corriente"> CUENTA CORRIENTE {{ cuenta_corriente ? ' - $' + (cuenta_corriente.saldo | moneda)  : null}} </option>
         </select>
         <div class="flex items-center">

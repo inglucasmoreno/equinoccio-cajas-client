@@ -51,14 +51,19 @@
         <div class="mt-2">
           <p class="font-semibold p-1 border-t"> Formas de pago </p>
           <div>
-            <p class="p-1 flex items-center justify-between" *ngFor="let forma of ventaPropia?.formas_pago">
-              <span>
-                {{ forma.descripcion }}
-              </span>
-              <span class="font-semibold">
+            <div class="p-1 flex items-center justify-between" *ngFor="let forma of ventaPropia?.formas_pago">
+              <p class="flex items-center">
+                <span>
+                  {{ forma.descripcion }}
+                </span>
+                <span class="px-2 py-1 rounded-full ml-2 bg-green-700 text-white text-xs" *ngIf="this.authService.caja && this.authService.caja._id === forma._id">
+                  Mi caja
+                </span>
+              </p>
+              <p class="font-semibold">
                 ${{ forma.monto | moneda }}
-              </span>
-            </p>
+              </p>
+            </div>
           </div>
           <div>
             <p class="p-1 flex items-center justify-between" *ngFor="let relacion of venta_cheques">
@@ -169,7 +174,7 @@
         </div>  
         <div *ngIf="relaciones_ventas && relaciones_ventas.length > 0" class="mt-2">
           <h2 class="p-1 bg-gray-100 font-semibold rounded w-full border border-gray-300"> Facturas pagadas </h2>
-          <div (click)="abrirDetallesVenta(venta.venta_propia._id)" title="Detalles de venta" class="flex cursor-pointer hover:bg-secondaryColor hover:text-white p-2 items-center justify-between border-b border-gray-300 pb-2" *ngFor="let venta of relaciones_ventas">
+          <div (click)="abrirDetallesVenta(venta.venta_propia._id)" title="Detalles de venta" class="flex cursor-pointer hover:bg-yellow-50 p-2 items-center justify-between border-b border-gray-300 pb-2" *ngFor="let venta of relaciones_ventas">
             <div> 
               <p> {{ venta.venta_propia.nro | codigoVentasPropias }} </p>
               <p [ngClass]="{'bg-green-100 border-green-300 text-green-700':venta.venta_cancelada, 'bg-blue-100 border-blue-300 text-blue-700': !venta.venta_cancelada}" class="border font-semibold mt-1 text-xs p-1 rounded"> {{ venta.venta_cancelada ? 'Factura cancelada' : 'Pago parcial'}} </p>
