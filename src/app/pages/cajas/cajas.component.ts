@@ -326,6 +326,7 @@ export class CajasComponent implements OnInit {
             next: () => {
               this.flagMovimientoInterno = true;
               this.listarCajas();
+              this.authService.getCaja();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           })
         }

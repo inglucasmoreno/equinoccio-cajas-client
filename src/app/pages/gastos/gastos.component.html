@@ -28,7 +28,11 @@
                     <select [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.caja"
                         class="py-2 mt-1 border-b-2 border-gray-300 tranform duration-500 focus:border-secondaryColor outline-none w-full text-gray-800">
                         <option value=""> Seleccionar caja </option>
-                        <option [ngClass]="{'bg-red-100 font-semibold': this.authService.caja && this.authService.caja._id === caja._id}" [value]="caja._id" *ngFor="let caja of cajas"> {{ caja.descripcion }} {{ (this.authService.caja && this.authService.caja._id === caja._id) ? ' - [ MI CAJA ]' : '' }} </option>
+                        <option
+                            [ngClass]="{'bg-red-100 font-semibold': this.authService.caja && this.authService.caja._id === caja._id}"
+                            [value]="caja._id" *ngFor="let caja of cajas"> {{ caja.descripcion }} {{
+                            (this.authService.caja && this.authService.caja._id === caja._id) ? ' - [ MI CAJA ]' : '' }}
+                        </option>
                     </select>
                 </div>
                 <div class="md:w-1/2 md:ml-2 mt-4 md:mt-0">
@@ -44,12 +48,14 @@
             <div class="md:flex md:items-center mt-4">
                 <div class="md:w-1/2">
                     <p class="font-semibold"> <span class="text-red-500"> * </span> Monto </p>
-                    <input [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.monto" type="number" placeholder="Ej. 3000"
+                    <input [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.monto" type="number"
+                        placeholder="Ej. 3000"
                         class="py-2 mt-1 border-b-2 border-gray-300 tranform duration-500 focus:border-secondaryColor outline-none w-full text-gray-800">
                 </div>
                 <div class="md:ml-2 md:w-1/2 mt-4 md:mt-0">
                     <p class="font-semibold"> Observación </p>
-                    <input [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.observacion" type="text" placeholder="Ej. Combustible auto"
+                    <input [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.observacion" type="text"
+                        placeholder="Ej. Combustible auto"
                         class="py-2 mt-1 border-b-2 border-gray-300 tranform duration-500 focus:border-secondaryColor outline-none w-full text-gray-800">
                 </div>
             </div>
@@ -108,13 +114,14 @@
                     <div *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'">
                         <button title="Nuevo gasto" (click)="abrirModal('crear')"
                             class="p-2 border mr-3 focus:outline-none hover:text-secondaryColor border-gray-300 bg-white rounded shadow">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-                              </svg>                              
+                            </svg>
                         </button>
                     </div>
                 </div>
-                <div class="md:flex md:items-center md:justify-between px-4 py-2">
+                <div class="md:flex md:items-center md:justify-center px-4 py-2">
                     <div class="my-2 flex sm:flex-row flex-col">
                         <div class="flex flex-row mb-1 sm:mb-0">
                             <div class="relative">
@@ -153,6 +160,23 @@
                             <option value="50"> 50 elementos </option>
                             <option value="100"> 100 elementos </option>
                         </select>
+                    </div>
+                </div>
+                <div *ngIf="authService?.caja" class="mx-4 mb-2">
+                    <div class="flex items-center text-sm md:justify-center rounded-full bg-white">
+                        <div
+                            class="bg-green-600 flex items-center rounded-l-full border-r-0 text-white border border-green-600 p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5 text-white">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M12 6v12m-3-2.818l.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <p class="ml-1">
+                                Mi saldo
+                            </p>
+                        </div>
+                        <p class="p-2 border bg-gray-100 border-gray-400 rounded-r-full pr-4 text-primary-800"> ${{
+                            authService?.caja?.saldo | moneda }} </p>
                     </div>
                 </div>
                 <div class="px-4 py-2 overflow-x-auto">
@@ -217,112 +241,112 @@
                                         </div>
                                     </th>
                                     <th
-                                    class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
-                                    <div (click)="ordenarPorColumna('tipo_gasto.descripcion')"
-                                        class="cursor-pointer w-max flex items-center focus:outline-none">
-                                        <span> Tipo de gasto </span>
-                                        <span class="ml-2 text-gray-600">
-                                            <svg *ngIf="ordenar.columna == 'tipo_gasto.descripcion' && ordenar.direccion == 1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna == 'tipo_gasto.descripcion' && ordenar.direccion == -1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-up">
-                                                <polyline points="18 15 12 9 6 15"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna != 'tipo_gasto.descripcion'" width="15" height="15"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-minus">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg>
-                                        </span>
-                                    </div>
+                                        class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
+                                        <div (click)="ordenarPorColumna('tipo_gasto.descripcion')"
+                                            class="cursor-pointer w-max flex items-center focus:outline-none">
+                                            <span> Tipo de gasto </span>
+                                            <span class="ml-2 text-gray-600">
+                                                <svg *ngIf="ordenar.columna == 'tipo_gasto.descripcion' && ordenar.direccion == 1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna == 'tipo_gasto.descripcion' && ordenar.direccion == -1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna != 'tipo_gasto.descripcion'" width="15"
+                                                    height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-minus">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </th>
                                     <th
-                                    class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
-                                    <div (click)="ordenarPorColumna('observacion')"
-                                        class="cursor-pointer w-max flex items-center focus:outline-none">
-                                        <span> Observaciones  </span>
-                                        <span class="ml-2 text-gray-600">
-                                            <svg *ngIf="ordenar.columna == 'observacion' && ordenar.direccion == 1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna == 'observacion' && ordenar.direccion == -1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-up">
-                                                <polyline points="18 15 12 9 6 15"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna != 'observacion'" width="15" height="15"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-minus">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg>
-                                        </span>
-                                    </div>
+                                        class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
+                                        <div (click)="ordenarPorColumna('observacion')"
+                                            class="cursor-pointer w-max flex items-center focus:outline-none">
+                                            <span> Observaciones </span>
+                                            <span class="ml-2 text-gray-600">
+                                                <svg *ngIf="ordenar.columna == 'observacion' && ordenar.direccion == 1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna == 'observacion' && ordenar.direccion == -1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna != 'observacion'" width="15" height="15"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-minus">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </th>
                                     <th
-                                    class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
-                                    <div (click)="ordenarPorColumna('caja.descripcion')"
-                                        class="cursor-pointer flex items-center focus:outline-none">
-                                        <span> Caja </span>
-                                        <span class="ml-2 text-gray-600">
-                                            <svg *ngIf="ordenar.columna == 'caja.descripcion' && ordenar.direccion == 1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna == 'caja.descripcion' && ordenar.direccion == -1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-up">
-                                                <polyline points="18 15 12 9 6 15"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna != 'caja.descripcion'" width="15" height="15"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-minus">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg>
-                                        </span>
-                                    </div>
+                                        class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
+                                        <div (click)="ordenarPorColumna('caja.descripcion')"
+                                            class="cursor-pointer flex items-center focus:outline-none">
+                                            <span> Caja </span>
+                                            <span class="ml-2 text-gray-600">
+                                                <svg *ngIf="ordenar.columna == 'caja.descripcion' && ordenar.direccion == 1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna == 'caja.descripcion' && ordenar.direccion == -1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna != 'caja.descripcion'" width="15"
+                                                    height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-minus">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </th>
                                     <th
-                                    class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
-                                    <div (click)="ordenarPorColumna('monto')"
-                                        class="cursor-pointer flex items-center focus:outline-none">
-                                        <span> Monto </span>
-                                        <span class="ml-2 text-gray-600">
-                                            <svg *ngIf="ordenar.columna == 'monto' && ordenar.direccion == 1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-down">
-                                                <polyline points="6 9 12 15 18 9"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna == 'monto' && ordenar.direccion == -1"
-                                                width="15" height="15" viewBox="0 0 24 24" fill="none"
-                                                stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                                stroke-linejoin="round" class="feather feather-chevron-up">
-                                                <polyline points="18 15 12 9 6 15"></polyline>
-                                            </svg>
-                                            <svg *ngIf="ordenar.columna != 'monto'" width="15" height="15"
-                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                                                class="feather feather-minus">
-                                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                            </svg>
-                                        </span>
-                                    </div>
+                                        class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
+                                        <div (click)="ordenarPorColumna('monto')"
+                                            class="cursor-pointer flex items-center focus:outline-none">
+                                            <span> Monto </span>
+                                            <span class="ml-2 text-gray-600">
+                                                <svg *ngIf="ordenar.columna == 'monto' && ordenar.direccion == 1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-down">
+                                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna == 'monto' && ordenar.direccion == -1"
+                                                    width="15" height="15" viewBox="0 0 24 24" fill="none"
+                                                    stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                    stroke-linejoin="round" class="feather feather-chevron-up">
+                                                    <polyline points="18 15 12 9 6 15"></polyline>
+                                                </svg>
+                                                <svg *ngIf="ordenar.columna != 'monto'" width="15" height="15"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="feather feather-minus">
+                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </th>
                                     <th
                                         class="px-5 border-b-2 border-gray-200 bg-gray-100 text-center text-sm font-semibold text-gray-900 tracking-wider">
@@ -363,22 +387,34 @@
                                             ${{ gasto.monto | moneda }}
                                         </p>
                                     </td>
-                                    <td
-                                        class="px-5 py-2 border-b border-gray-200 text-xs text-center">
+                                    <td class="px-5 py-2 border-b border-gray-200 text-xs text-center">
                                         <span class="flex items-center justify-center text-gray-900 whitespace-no-wrap">
-                                            <app-boton-tabla *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'" (click)="altaBajaGasto(gasto)" [title]="gasto.activo ? 'Baja de gasto' : 'Alta de gasto'">
-                                                <svg *ngIf="gasto.activo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            <app-boton-tabla
+                                                *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'"
+                                                (click)="altaBajaGasto(gasto)"
+                                                [title]="gasto.activo ? 'Baja de gasto' : 'Alta de gasto'">
+                                                <svg *ngIf="gasto.activo" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                    class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
-                                                <svg *ngIf="!gasto.activo" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-                                                </svg>                                                 
+                                                <svg *ngIf="!gasto.activo" xmlns="http://www.w3.org/2000/svg"
+                                                    class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                                                    stroke="currentColor" stroke-width="2">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M5 13l4 4L19 7" />
+                                                </svg>
                                             </app-boton-tabla>
-                                            <app-boton-tabla class="ml-2" (click)="abrirModal('editar', gasto)" title="Detalles de gasto">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
-                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                  </svg>   
+                                            <app-boton-tabla class="ml-2" (click)="abrirModal('editar', gasto)"
+                                                title="Detalles de gasto">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z" />
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                </svg>
                                             </app-boton-tabla>
                                         </span>
                                     </td>
@@ -388,8 +424,10 @@
                     </div>
                 </div>
             </div>
-            <div class="px-5 py-5 text-sm mt-4 bg-white border-t flex shadow flex-col xs:flex-row items-center xs:justify-between">
-                <pagination-controls nextLabel="Siguiente" previousLabel="Anterior" (pageChange)="cambiarPagina($event)"></pagination-controls>
+            <div
+                class="px-5 py-5 text-sm mt-4 bg-white border-t flex shadow flex-col xs:flex-row items-center xs:justify-between">
+                <pagination-controls nextLabel="Siguiente" previousLabel="Anterior"
+                    (pageChange)="cambiarPagina($event)"></pagination-controls>
             </div>
         </div>
     </app-tarjeta-lista>

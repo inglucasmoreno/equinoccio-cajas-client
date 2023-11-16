@@ -441,6 +441,7 @@ export class NuevoCobroComponent implements OnInit {
             next: () => {
               window.open(`${base_url}/pdf/recibo_cobro.pdf`, '_blank');
               this.reiniciarSeccion();
+              this.authService.getCaja();
               this.alertService.close();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });

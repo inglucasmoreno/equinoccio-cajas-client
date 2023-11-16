@@ -192,6 +192,7 @@ export class GastosComponent implements OnInit {
 
     this.gastosService.nuevoGasto(data).subscribe(() => {
       this.listarGastos();
+      this.authService.getCaja();
     }, ({ error }) => {
       this.alertService.errorApi(error.message);
     });

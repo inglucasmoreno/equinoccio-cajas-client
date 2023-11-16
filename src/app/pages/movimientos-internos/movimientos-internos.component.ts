@@ -263,6 +263,7 @@ export class MovimientosInternosComponent implements OnInit {
           this.cajasService.movimientoInterno(this.movimientoInterno).subscribe({
             next: () => {
               this.listarMovimientos();
+              this.authService.getCaja();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           })
         }

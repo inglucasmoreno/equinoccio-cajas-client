@@ -607,12 +607,12 @@ export class NuevaVentaComponent implements OnInit {
             updatorUser: this.authService.usuario.userId,
           };
 
-
           this.ventasPropiasService.nuevaVenta(data).subscribe({
             next: () => {
               this.reiniciarValores();
               this.showFormaPago = false;
               this.alertService.success('Venta generada correctamente');
+              this.authService.getCaja();
               window.open(`${base_url}/pdf/venta-propia.pdf`, '_blank');
             },
             error: ({ error }) => this.alertService.errorApi(error.message)
