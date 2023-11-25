@@ -43,6 +43,7 @@ import { PagosComponent } from './pagos/pagos.component';
 import { NuevoPagoComponent } from './pagos/nuevo-pago.component';
 import { MovimientosInternosComponent } from './movimientos-internos/movimientos-internos.component';
 import { PermisosComponent } from './usuarios/permisos/permisos.component';
+import { NuevaVentaSimpleComponent } from './ventas/nueva-venta-simple.component';
 
 const routes: Routes = [
     {
@@ -50,7 +51,7 @@ const routes: Routes = [
         component: PagesComponent,
         canActivate: [ AuthGuard ],    // Guard - Se verifica si el usuario esta logueado
         children: [
-            
+
             // Home
             { path: 'home', component: HomeComponent },
 
@@ -68,13 +69,13 @@ const routes: Routes = [
 
             // Clientes
             { path: 'clientes', data: { permisos: 'CLIENTES_NAV' }, canActivate: [PermisosGuard], component: ClientesComponent },
-    
+
             // Proveedores
             { path: 'proveedores', data: { permisos: 'PROVEEDORES_NAV' }, canActivate: [PermisosGuard], component: ProveedoresComponent },
 
             // Unidad medida
             { path: 'unidad-medida', data: { permisos: 'UNIDADES_MEDIDA_NAV' }, canActivate: [PermisosGuard], component: UnidadMedidaComponent },
-            
+
             // Familia de productos
             { path: 'familia-productos', data: { permisos: 'FAMILIA_PRODUCTOS_NAV' }, canActivate: [PermisosGuard], component: FamiliaProductosComponent },
 
@@ -88,6 +89,7 @@ const routes: Routes = [
             // Ventas
             { path: 'ventas', data: { permisos: 'VENTAS_DIRECTAS_NAV' }, canActivate: [PermisosGuard], component: VentasComponent },
             { path: 'nueva-venta', data: { permisos: 'VENTAS_DIRECTAS_NAV' }, canActivate: [PermisosGuard], component: NuevaVentaComponent },
+            { path: 'nueva-venta-simple', data: { permisos: 'VENTAS_PROPIAS_NAV' }, canActivate: [PermisosGuard], component: NuevaVentaSimpleComponent },
             { path: 'ventas-propias', data: { permisos: 'VENTAS_PROPIAS_NAV' }, canActivate: [PermisosGuard], component: VentasPropiasComponent },
             { path: 'ventas-propias/:codigo', data: { permisos: 'VENTAS_PROPIAS_NAV' }, canActivate: [PermisosGuard], component: VentasPropiasComponent },
             { path: 'cc-clientes', component: CcClientesComponent },

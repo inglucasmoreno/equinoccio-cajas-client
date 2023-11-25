@@ -58,7 +58,7 @@
         </div>
         <div *ngIf="muestraSecciones.ventas">
           <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
-            <p class="font-semibold"> Ventas propias </p>
+            <p class="font-semibold"> Ventas </p>
             <select [(ngModel)]="permisosSecciones.VENTAS_PROPIAS"
               class="p-2 w-max text-sm border border-gray-400 rounded">
               <option value="VENTAS_PROPIAS_NOT_ACCESS"> Sin acceso </option>
@@ -66,7 +66,7 @@
               <option value="VENTAS_PROPIAS_ALL"> Permisos totales </option>
             </select>
           </div>
-          <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
+          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Recibos de cobro </p>
             <select [(ngModel)]="permisosSecciones.RECIBOS_COBRO"
               class="p-2 w-max text-sm border border-gray-400 rounded">
@@ -74,7 +74,7 @@
               <option value="RECIBOS_COBRO_READ"> Solo lectura </option>
               <option value="RECIBOS_COBRO_ALL"> Permisos totales </option>
             </select>
-          </div>
+          </div> -->
           <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Clientes </p>
             <select [(ngModel)]="permisosSecciones.CLIENTES" class="p-2 w-max text-sm border border-gray-400 rounded">
@@ -83,7 +83,7 @@
               <option value="CLIENTES_ALL"> Permisos totales </option>
             </select>
           </div>
-          <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
+          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Cuentas corrientes - Clientes </p>
             <select [(ngModel)]="permisosSecciones.CUENTAS_CORRIENTES_CLIENTES"
               class="p-2 w-max text-sm border border-gray-400 rounded">
@@ -91,12 +91,12 @@
               <option value="CUENTAS_CORRIENTES_CLIENTES_READ"> Solo lectura </option>
               <option value="CUENTAS_CORRIENTES_CLIENTES_ALL"> Permisos totales </option>
             </select>
-          </div>
+          </div> -->
         </div>
       </div>
 
       <!-- Seccion - Compras -->
-      <!-- 
+      <!--
       <div class="text-sm mt-2">
         <div (click)="abrirCerrarSeccion('compras')"
           class="p-2 cursor-pointer flex items-center justify-between bg-gray-100 border border-gray-400">
@@ -182,22 +182,22 @@
               <option value="MOVIMIENTOS_INTERNOS_ALL"> Permisos totales </option>
             </select>
           </div>
-          <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
+          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Cheques </p>
             <select [(ngModel)]="permisosSecciones.CHEQUES" class="p-2 w-max text-sm border border-gray-400 rounded">
               <option value="CHEQUES_NOT_ACCESS"> Sin acceso </option>
               <option value="CHEQUES_READ"> Solo lectura </option>
               <option value="CHEQUES_ALL"> Permisos totales </option>
             </select>
-          </div>
-          <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
+          </div> -->
+          <!-- <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Bancos </p>
             <select [(ngModel)]="permisosSecciones.BANCOS" class="p-2 w-max text-sm border border-gray-400 rounded">
               <option value="BANCOS_NOT_ACCESS"> Sin acceso </option>
               <option value="BANCOS_READ"> Solo lectura </option>
               <option value="BANCOS_ALL"> Permisos totales </option>
             </select>
-          </div>
+          </div> -->
           <div class="flex items-center justify-between pt-4 border-b border-gray-300 pb-4">
             <p class="font-semibold"> Gastos </p>
             <select [(ngModel)]="permisosSecciones.GASTOS" class="p-2 w-max text-sm border border-gray-400 rounded">
@@ -307,6 +307,6 @@
         </div>
       </div>
     </div>
-    
+
   </div>
 </div>

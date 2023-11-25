@@ -36,8 +36,8 @@ const base_url = environment.base_url;
 export class CajasMovimientosComponent implements OnInit {
 
   // Fechas
-  public reportes = { 
-    fechaDesde: '', 
+  public reportes = {
+    fechaDesde: '',
     fechaHasta: '',
     caja: ''
   };
@@ -57,7 +57,7 @@ export class CajasMovimientosComponent implements OnInit {
   public showModalDetallesGasto = false;
   public showModalReportesMovimientos = false;
 
-  // Estado formulario 
+  // Estado formulario
   public estadoFormulario = 'crear';
 
   // Caja
@@ -657,6 +657,7 @@ export class CajasMovimientosComponent implements OnInit {
 
   // Reporte - Excel
   reporteExcel(): void {
+    console.log(this.caja)
     this.alertService.question({ msg: 'Generando reporte', buttonText: 'Generar' })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
@@ -664,7 +665,7 @@ export class CajasMovimientosComponent implements OnInit {
           this.reportesService.movimientosCajasExcel(this.reportes).subscribe({
             next: (buffer) => {
               const blob = new Blob([buffer.body], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-              saveAs(blob, `Reporte - Movimientos - ${this.caja.cliente.descripcion} - ${format(new Date(), 'dd-MM-yyyy')}`);
+              saveAs(blob, `Reporte - Movimientos - ${this.caja.descripcion} - ${format(new Date(), 'dd-MM-yyyy')}`);
               this.alertService.close();
               this.showModalReportesMovimientos = false;
             }, error: ({ error }) => this.alertService.errorApi(error.message)

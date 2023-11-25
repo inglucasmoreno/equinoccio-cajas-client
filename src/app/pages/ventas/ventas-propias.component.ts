@@ -24,7 +24,7 @@ export class VentasPropiasComponent implements OnInit {
 
   // Compra
 
-  public showModalCompra = false; 
+  public showModalCompra = false;
 
   // Reportes
   public reportes = {
@@ -251,6 +251,7 @@ export class VentasPropiasComponent implements OnInit {
           }).subscribe(() => {
             this.alertService.loading();
             this.listarVentas();
+            this.authService.getCaja();
           }, ({ error }) => {
             this.alertService.close();
             this.alertService.errorApi(error.message);

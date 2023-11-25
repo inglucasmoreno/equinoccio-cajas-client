@@ -45,6 +45,7 @@ import { NuevoPagoComponent } from './pagos/nuevo-pago.component';
 import { MovimientosInternosComponent } from './movimientos-internos/movimientos-internos.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { PermisosComponent } from './usuarios/permisos/permisos.component';
+import { NuevaVentaSimpleComponent } from './ventas/nueva-venta-simple.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { PermisosComponent } from './usuarios/permisos/permisos.component';
     NuevoPagoComponent,
     MovimientosInternosComponent,
     PermisosComponent,
+    NuevaVentaSimpleComponent,
   ],
   imports: [
     CommonModule,
