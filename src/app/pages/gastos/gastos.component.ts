@@ -24,7 +24,7 @@ export class GastosComponent implements OnInit {
   // Modal
   public showModalGasto = false;
 
-  // Estado formulario 
+  // Estado formulario
   public estadoFormulario = 'crear';
 
   // Gastos
@@ -107,7 +107,7 @@ export class GastosComponent implements OnInit {
     this.reiniciarFormulario();
     this.dataGasto = {
       fecha_gasto: format(new Date(), 'yyyy-MM-dd'),
-      caja: '',
+      caja: this.authService.caja ? this.authService.caja._id.toString() : '',
       tipo_gasto: '',
       monto: null,
       observacion: ''

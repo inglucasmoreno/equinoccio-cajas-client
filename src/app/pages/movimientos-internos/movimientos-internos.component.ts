@@ -21,7 +21,7 @@ export class MovimientosInternosComponent implements OnInit {
   public showModalDetalles = false;
   public showModalMovimientoInterno = false;
 
-  // Estado formulario 
+  // Estado formulario
   public estadoFormulario = 'crear';
 
   // Caja
@@ -134,7 +134,7 @@ export class MovimientosInternosComponent implements OnInit {
       desde: this.desde,
       usuario: this.authService.usuario.userId,
       cantidadItems: this.cantidadItems,
-      parametro: this.filtro.parametro   
+      parametro: this.filtro.parametro
     }
     this.movimientosInternosService.listarMovimientos(parametros)
       .subscribe(({ movimientos, totalItems }) => {
@@ -200,7 +200,7 @@ export class MovimientosInternosComponent implements OnInit {
   abrirMovimientoInterno(): void {
     console.log('llega');
     this.movimientoInterno = {
-      caja_origen: '',
+      caja_origen: this.authService.caja ? this.authService.caja._id : '',
       caja_destino: '',
       observacion: '',
       monto_origen: null,

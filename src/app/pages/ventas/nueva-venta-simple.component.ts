@@ -84,6 +84,7 @@ export class NuevaVentaSimpleComponent implements OnInit {
 
     gsap.from('.gsap-contenido', { y: 100, opacity: 0, duration: .2 });
     this.alertService.loading();
+    this.cajaSeleccionada = this.authService.caja ? this.authService.caja._id : '';
 
     // Listado de productos
     this.productosService.listarProductos().subscribe({

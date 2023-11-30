@@ -84,7 +84,7 @@ export class MovimientosComponent implements OnInit {
       next: ({movimientos, totalItems}) => {
         this.movimientos = movimientos;
         this.totalItems = totalItems;
-        this.showModalCreacion = false;        
+        this.showModalCreacion = false;
         this.alertService.close();
       },error: ({error}) => this.alertService.errorApi(error.message)
     })
@@ -158,7 +158,7 @@ export class MovimientosComponent implements OnInit {
 
   // Generar movimiento
   generarMovimiento(): void {
-    
+
     // Verificaciones
 
     if(this.tipo_movimiento.trim() === ''){
@@ -183,7 +183,7 @@ export class MovimientosComponent implements OnInit {
 
     // Generacion de movimiento
     this.alertService.question({ msg: 'Esta por generar un movimiento', buttonText: 'Generar' })
-        .then(({isConfirmed}) => {  
+        .then(({isConfirmed}) => {
           if (isConfirmed) {
 
             const data = {
@@ -203,7 +203,7 @@ export class MovimientosComponent implements OnInit {
               creatorUser: this.authService.usuario.userId,
               updatorUser: this.authService.usuario.userId,
             }
-        
+
             this.alertService.loading();
             this.movimientosService.nuevoMovimiento(data).subscribe({
               next: () => {
@@ -226,7 +226,7 @@ export class MovimientosComponent implements OnInit {
                 }
 
                 this.listarMovimientos();
-              
+
               }, error: ({error}) => this.alertService.errorApi(error.message)
             });
 
