@@ -93,7 +93,7 @@
         </div>
 
         <div class="px-2 text-sm">
-            <h2 class="mt-2 font-semibold text-sm"> Observación personalizada </h2>
+            <h2 class="mt-2 font-semibold text-sm"> <span class="text-red-600"> * </span> Observaciones </h2>
             <input [(ngModel)]="movimientoInterno.observacion" type="text" (keyup.enter)="generarMovimientoInterno()"
                 placeholder="Colocar observación"
                 class="border focus:outline-none border-gray-400 w-full mt-1 p-2 rounded">
@@ -331,7 +331,7 @@
                                     </td>
                                     <td class="px-5 py-2 border-b border-gray-200 text-xs">
                                         <p class="text-gray-900 whitespace-no-wrap">
-                                            {{ movimiento.observacion.trim() !== '' ? movimiento.observacion : 'Sin observación' }}
+                                            {{ movimiento.observacion.trim() !== '' ? movimiento.observacion : '-' }}
                                         </p>
                                     </td>
                                     <td class="px-5 py-2 border-b border-gray-200 text-xs">
@@ -363,11 +363,11 @@
                                     </td>
                                     <td class="px-5 py-2 border-b border-gray-200 text-xs text-center">
                                         <span class="flex items-center justify-center text-gray-900 whitespace-no-wrap">
-                                            <app-boton-tabla (click)="bajaMovimiento(movimiento)" title="Baja de movimiento">
+                                            <!-- <app-boton-tabla (click)="bajaMovimiento(movimiento)" title="Baja de movimiento">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                                                  </svg>                                                  
-                                            </app-boton-tabla>
+                                                  </svg>
+                                            </app-boton-tabla> -->
                                             <app-boton-tabla class="ml-2" (click)="abrirDetalles(movimiento)"
                                                 title="Detalles de movimiento">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

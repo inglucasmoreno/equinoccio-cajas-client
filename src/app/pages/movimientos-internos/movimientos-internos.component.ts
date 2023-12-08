@@ -243,6 +243,18 @@ export class MovimientosInternosComponent implements OnInit {
       return;
     }
 
+    // Verificacion: Saldo origen
+    if (this.movimientoInterno.monto_origen <= 0) {
+      this.alertService.info('Debe colocar un saldo de origen correcto');
+      return;
+    }
+
+    // Verificacion: Saldo destino
+    if (this.movimientoInterno.monto_destino <= 0) {
+      this.alertService.info('Debe colocar un saldo de destino correcto');
+      return;
+    }
+
     // Verificacion: Saldo de caja inicial insuficiente
     let saldoCajaInicial = 0;
 
@@ -252,6 +264,12 @@ export class MovimientosInternosComponent implements OnInit {
 
     if (this.movimientoInterno.monto_origen > saldoCajaInicial) {
       this.alertService.info('Saldo de caja origen insuficiente');
+      return;
+    }
+
+    // Verificacion: Debe colocar una observacion
+    if (this.movimientoInterno.observacion.trim() === '') {
+      this.alertService.info('Debe colocar una observación');
       return;
     }
 
@@ -305,7 +323,7 @@ export class MovimientosInternosComponent implements OnInit {
           this.movimientosInternosService.bajaMovimiento(movimiento._id).subscribe({
             next: () => {
               this.alertService.success('Movimiento dado de baja');
-            }, error: ({error}) => this.alertService.errorApi(error.message)
+            }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
         }
       });
