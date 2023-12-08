@@ -16,7 +16,7 @@ export class MovimientosInternosService {
     };
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   // Nuevo movimiento interno
   nuevoMovimiento(data: any): Observable<any> {
@@ -27,7 +27,7 @@ export class MovimientosInternosService {
 
   // Movimiento interno por ID
   getMovimiento(id: string): Observable<any> {
-    return this.http.get(`${base_url}/movimientos-internos/${ id }`,{ 
+    return this.http.get(`${base_url}/movimientos-internos/${id}`, {
       headers: this.getToken
     });
   };
@@ -49,10 +49,17 @@ export class MovimientosInternosService {
   }
 
   // Actualizar movimiento
-  actualizarMovimiento(id:string, data: any): Observable<any> {
+  actualizarMovimiento(id: string, data: any): Observable<any> {
     return this.http.put(`${base_url}/movimientos-internos/${id}`, data, {
       headers: this.getToken
     });
-  }  
+  }
+
+  // Baja de movimiento
+  bajaMovimiento(id: string): Observable<any> {
+    return this.http.put(`${base_url}/movimientos-internos/baja-movimiento/${id}`, {
+      headers: this.getToken
+    });
+  }
 
 }

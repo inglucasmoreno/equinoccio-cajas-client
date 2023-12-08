@@ -91,8 +91,8 @@ export class MovimientosInternosComponent implements OnInit {
     this.cajasService.listarCajas().subscribe({
       next: ({ cajas }) => {
         this.cajas = cajas.filter(caja => caja.activo && caja._id.toString() !== '222222222222222222222222');
-        if(this.authService.usuario.role === 'ADMIN_ROLE') this.cajasSelectorOrigen = this.cajas;
-        else this.cajasSelectorOrigen = this.cajas.filter( caja => this.authService.usuario.permisos_cajas.includes(caja._id.toString()));
+        if (this.authService.usuario.role === 'ADMIN_ROLE') this.cajasSelectorOrigen = this.cajas;
+        else this.cajasSelectorOrigen = this.cajas.filter(caja => this.authService.usuario.permisos_cajas.includes(caja._id.toString()));
         this.cajasSelectorDestino = this.cajas;
         this.listarMovimientos();
       }, error: ({ error }) => this.alertService.errorApi(error.message)
@@ -198,7 +198,6 @@ export class MovimientosInternosComponent implements OnInit {
 
   // Abrir movimiento interno
   abrirMovimientoInterno(): void {
-    console.log('llega');
     this.movimientoInterno = {
       caja_origen: this.authService.caja ? this.authService.caja._id : '',
       caja_destino: '',
@@ -295,6 +294,21 @@ export class MovimientosInternosComponent implements OnInit {
   // Duplicar monto
   duplicarMonto(): void {
     this.movimientoInterno.monto_destino = this.movimientoInterno.monto_origen;
+  }
+
+  // Baja de movimiento
+  bajaMovimiento(movimiento: any): void {
+    this.alertService.question({ msg: 'Esta por dar de baja un movimiento', buttonText: 'Eliminar' })
+      .then(({ isConfirmed }) => {
+        if (isConfirmed) {
+          this.alertService.loading();
+          this.movimientosInternosService.bajaMovimiento(movimiento._id).subscribe({
+            next: () => {
+              this.alertService.success('Movimiento dado de baja');
+            }, error: ({error}) => this.alertService.errorApi(error.message)
+          });
+        }
+      });
   }
 
   // Abrir detalle de movimiento interno
