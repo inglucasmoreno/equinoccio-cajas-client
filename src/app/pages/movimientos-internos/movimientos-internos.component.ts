@@ -262,10 +262,10 @@ export class MovimientosInternosComponent implements OnInit {
       if (String(elemento._id) === String(this.movimientoInterno.caja_origen)) saldoCajaInicial = elemento.saldo;
     });
 
-    if (this.movimientoInterno.monto_origen > saldoCajaInicial) {
-      this.alertService.info('Saldo de caja origen insuficiente');
-      return;
-    }
+    // if (this.movimientoInterno.monto_origen > saldoCajaInicial) {
+    //   this.alertService.info('Saldo de caja origen insuficiente');
+    //   return;
+    // }
 
     // Verificacion: Debe colocar una observacion
     if (this.movimientoInterno.observacion.trim() === '') {
@@ -276,13 +276,32 @@ export class MovimientosInternosComponent implements OnInit {
     this.alertService.question({ msg: 'Generando movimiento', buttonText: 'Generar' })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
-          this.alertService.loading();
-          this.cajasService.movimientoInterno(this.movimientoInterno).subscribe({
-            next: () => {
-              this.listarMovimientos();
-              this.authService.getCaja();
+          this.cajasService.getCaja(this.movimientoInterno.caja_origen).subscribe({
+            next: ({ caja }) => {
+              if (caja.saldo < this.movimientoInterno.monto_origen) {
+                this.alertService.question({ msg: 'La caja origen no tiene suficiente dinero', buttonText: 'Continuar' })
+                  .then(({ isConfirmed }) => {
+                    if (isConfirmed) {
+                      this.alertService.loading();
+                      this.cajasService.movimientoInterno(this.movimientoInterno).subscribe({
+                        next: () => {
+                          this.listarMovimientos();
+                          this.authService.getCaja();
+                        }, error: ({ error }) => this.alertService.errorApi(error.message)
+                      })
+                    }
+                  });
+              } else {
+                this.alertService.loading();
+                this.cajasService.movimientoInterno(this.movimientoInterno).subscribe({
+                  next: () => {
+                    this.listarMovimientos();
+                    this.authService.getCaja();
+                  }, error: ({ error }) => this.alertService.errorApi(error.message)
+                })
+              }
             }, error: ({ error }) => this.alertService.errorApi(error.message)
-          })
+          });
         }
       });
   }

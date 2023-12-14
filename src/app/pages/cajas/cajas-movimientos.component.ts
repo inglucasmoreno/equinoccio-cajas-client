@@ -474,8 +474,6 @@ export class CajasMovimientosComponent implements OnInit {
   // Abrir detalles de cheque
   abrirDetallesCheque(cheque: any, origen: string): void {
 
-    console.log(cheque);
-
     this.chequeSeleccionado = cheque;
     this.origen = origen;
 
@@ -568,8 +566,6 @@ export class CajasMovimientosComponent implements OnInit {
 
     this.alertService.loading();
 
-    console.log(this.movimientoSeleccionado.orden_pago);
-
     // ORDEN DE PAGO
     this.pagosService.getOrdenPago(this.movimientoSeleccionado.orden_pago).subscribe({
       next: ({ orden_pago }) => {
@@ -657,7 +653,6 @@ export class CajasMovimientosComponent implements OnInit {
 
   // Reporte - Excel
   reporteExcel(): void {
-    console.log(this.caja)
     this.alertService.question({ msg: 'Generando reporte', buttonText: 'Generar' })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {

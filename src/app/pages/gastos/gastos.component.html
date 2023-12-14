@@ -175,7 +175,7 @@
                                 Mi saldo
                             </p>
                         </div>
-                        <p class="p-2 border bg-gray-100 border-gray-400 rounded-r-full pr-4 text-primary-800"> ${{
+                        <p [ngClass]="{'text-red-700 bg-red-50':authService?.caja?.saldo < 0, 'text-primary-800':authService?.caja?.saldo >= 0}" class="p-2 border bg-gray-100 border-gray-400 rounded-r-full pr-4 text-primary-800"> ${{
                             authService?.caja?.saldo | moneda }} </p>
                     </div>
                 </div>

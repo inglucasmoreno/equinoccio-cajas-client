@@ -386,7 +386,7 @@
                                 <tr [ngClass]="{'bg-gray-100' : this.authService.caja && this.authService.caja._id === caja._id}"
                                     class="animate__animated animate__fadeIn"
                                     *ngFor="let caja of cajas | filtroCajas:filtro.parametro:filtro.activo | paginate: {itemsPerPage: cantidadItems, currentPage: paginaActual}">
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
+                                    <td [ngClass]="{'bg-red-50':caja.saldo < 0}" class="px-5 py-2 border-b border-gray-200 text-xs">
                                         <p class="text-gray-900 whitespace-no-wrap">
                                             {{ caja.descripcion }} <span
                                                 class="bg-green-700 ml-3 text-white text-sx rounded-full px-2 py-1 w-max"
@@ -395,22 +395,22 @@
                                             </span>
                                         </p>
                                     </td>
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
-                                        <p [ngClass]="{'text-red-700':caja.saldo < 0}"
+                                    <td [ngClass]="{'bg-red-50':caja.saldo < 0}" class="px-5 py-2 border-b border-gray-200 text-xs">
+                                        <p [ngClass]="{'text-red-700 font-semibold':caja.saldo < 0}"
                                             class="text-gray-900 whitespace-no-wrap">
                                             ${{ caja.saldo | moneda }}
                                         </p>
                                     </td>
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
+                                    <td [ngClass]="{'bg-red-50':caja.saldo < 0}"  class="px-5 py-2 border-b border-gray-200 text-xs">
                                         <p class="text-gray-900 whitespace-no-wrap">
                                             {{ caja.createdAt | fecha }}
                                         </p>
                                     </td>
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
+                                    <td [ngClass]="{'bg-red-50':caja.saldo < 0}"  class="px-5 py-2 border-b border-gray-200 text-xs">
                                         <app-pastilla-estado [activo]=caja.activo
                                             (click)="actualizarEstado(caja)"></app-pastilla-estado>
                                     </td>
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs text-center">
+                                    <td [ngClass]="{'bg-red-50':caja.saldo < 0}"  class="px-5 py-2 border-b border-gray-200 text-xs text-center">
                                         <span class="flex items-center justify-center text-gray-900 whitespace-no-wrap">
                                             <app-boton-tabla *ngIf="permisos.all" (click)="abrirModal('editar', caja)"
                                                 title="Editar caja">

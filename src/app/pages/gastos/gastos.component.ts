@@ -190,12 +190,33 @@ export class GastosComponent implements OnInit {
       updatorUser: this.authService.usuario.userId,
     }
 
-    this.gastosService.nuevoGasto(data).subscribe(() => {
-      this.listarGastos();
-      this.authService.getCaja();
-    }, ({ error }) => {
-      this.alertService.errorApi(error.message);
-    });
+    this.cajasService.getCaja(this.dataGasto.caja).subscribe({
+      next: ({ caja }) => {
+        if(caja.saldo < this.dataGasto.monto){
+          this.alertService.close();
+          this.alertService.question({ msg: 'La caja no tiene suficiente dinero', buttonText: 'Continuar' })
+          .then(({isConfirmed}) => {
+            if (isConfirmed) {
+              this.alertService.loading();
+              this.gastosService.nuevoGasto(data).subscribe(() => {
+                this.listarGastos();
+                this.authService.getCaja();
+              }, ({ error }) => {
+                this.alertService.errorApi(error.message);
+              });
+            }
+          });
+        }else{
+          this.gastosService.nuevoGasto(data).subscribe(() => {
+            this.listarGastos();
+            this.authService.getCaja();
+          }, ({ error }) => {
+            this.alertService.errorApi(error.message);
+          });
+        }
+      }, error: ({ error }) => this.alertService.errorApi(error.message)
+    })
+
 
   }
 

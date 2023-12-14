@@ -35,7 +35,7 @@ export class CajasComponent implements OnInit {
   public showModalCaja = false;
   public showModalMovimientoInterno = false;
 
-  // Estado formulario 
+  // Estado formulario
   public estadoFormulario = 'crear';
 
   // Caja
@@ -170,10 +170,10 @@ export class CajasComponent implements OnInit {
     }
 
     // Verificacion: Monto inicial vacia
-    if (this.monto < 0) {
-      this.alertService.info('Debes colocar un monto válido');
-      return;
-    }
+    // if (this.monto < 0) {
+    //   this.alertService.info('Debes colocar un monto válido');
+    //   return;
+    // }
 
     // Generar movimiento interno
     this.alertService.question({ msg: 'Estas por crear una caja', buttonText: 'Crear' })
@@ -208,10 +208,10 @@ export class CajasComponent implements OnInit {
     }
 
     // Verificacion: Monto inicial vacia
-    if (this.monto < 0) {
-      this.alertService.info('Debes colocar un monto válido');
-      return;
-    }
+    // if (this.monto < 0) {
+    //   this.alertService.info('Debes colocar un monto válido');
+    //   return;
+    // }
 
     this.alertService.loading();
 
