@@ -126,7 +126,7 @@
                         <div class="flex flex-row mb-1 sm:mb-0">
                             <div class="relative">
                                 <select [(ngModel)]="filtro.activo" (change)="cambiarPagina(1)"
-                                    class="h-full text-sm rounded-r border-t border-l rounded-l sm:rounded-r-none sm:border-r-0 border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
+                                    class="h-full text-sm rounded-r border-t border-l rounded-l border-r border-b block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-white focus:border-gray-500">
                                     <option value='true'> Habilitados </option>
                                     <option value='false'> Deshabilitados </option>
                                     <option value=''> Todos </option>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="block relative">
+                        <div class="block relative md:ml-2 mt-1 md:mt-0">
                             <span class="h-full absolute inset-y-0 left-0 flex items-center pl-2">
                                 <svg viewBox="0 0 24 24"
                                     class="h-4 w-4 fill-current text-gray-500 cursor-pointer hover:text-secondary-500">
@@ -150,7 +150,7 @@
                                 </svg>
                             </span>
                             <input [(ngModel)]="filtro.parametro" placeholder="Buscar" (change)="cambiarPagina(1)"
-                                class="appearance-none rounded-r rounded-l sm:rounded-l-none border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
+                                class="appearance-none rounded-r rounded-l border border-gray-400 border-b block pl-8 pr-6 py-2 w-full bg-white text-sm placeholder-gray-400 text-gray-700 focus:bg-white focus:placeholder-gray-600 focus:text-gray-700 focus:outline-none" />
                         </div>
                         <select (change)="cambiarCantidadItems()"
                             class="bg-white text-sm focus:outline-none w-max px-2 py-2 md:py-0 md:ml-2 mt-2 md:mt-0 border text-gray-600 border-gray-400 rounded"
@@ -355,7 +355,7 @@
                                 </tr>
                             </thead>
                             <tbody *ngIf="gastos">
-                                <tr class="animate__animated animate__fadeIn"
+                                <tr [ngClass]="{'bg-red-50':!gasto.activo}" class="animate__animated animate__fadeIn"
                                     *ngFor="let gasto of gastos | paginate: {itemsPerPage: cantidadItems, currentPage: paginaActual, totalItems: totalItems}">
                                     <td class="px-5 py-2 border-b border-gray-200 text-xs">
                                         <p class="text-gray-900 w-max whitespace-no-wrap">
@@ -399,11 +399,8 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
-                                                <svg *ngIf="!gasto.activo" xmlns="http://www.w3.org/2000/svg"
-                                                    class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                                                    stroke="currentColor" stroke-width="2">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="M5 13l4 4L19 7" />
+                                                <svg *ngIf="!gasto.activo" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
                                                 </svg>
                                             </app-boton-tabla>
                                             <app-boton-tabla class="ml-2" (click)="abrirModal('editar', gasto)"

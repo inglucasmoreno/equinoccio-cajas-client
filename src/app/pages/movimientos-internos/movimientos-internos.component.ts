@@ -134,7 +134,8 @@ export class MovimientosInternosComponent implements OnInit {
       desde: this.desde,
       usuario: this.authService.usuario.userId,
       cantidadItems: this.cantidadItems,
-      parametro: this.filtro.parametro
+      parametro: this.filtro.parametro,
+      activo: this.filtro.activo
     }
     this.movimientosInternosService.listarMovimientos(parametros)
       .subscribe(({ movimientos, totalItems }) => {
@@ -333,15 +334,19 @@ export class MovimientosInternosComponent implements OnInit {
     this.movimientoInterno.monto_destino = this.movimientoInterno.monto_origen;
   }
 
-  // Baja de movimiento
-  bajaMovimiento(movimiento: any): void {
-    this.alertService.question({ msg: 'Esta por dar de baja un movimiento', buttonText: 'Eliminar' })
+  // Alta/Baja - Movimiento
+  altaBajaMovimiento(movimiento: any): void {
+    this.alertService.question({
+      msg: movimiento.activo ? 'Baja de movimiento' : 'Alta de movimiento',
+      buttonText: movimiento.activo ? 'Baja' : 'Alta'
+    })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
           this.alertService.loading();
-          this.movimientosInternosService.bajaMovimiento(movimiento._id).subscribe({
+          this.movimientosInternosService.altaBajaMovimiento(movimiento._id).subscribe({
             next: () => {
-              this.alertService.success('Movimiento dado de baja');
+              this.authService.getCaja();
+              this.cambiarPagina(1);
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
         }

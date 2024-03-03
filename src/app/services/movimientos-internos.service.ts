@@ -43,6 +43,7 @@ export class MovimientosInternosService {
         estado: parametros?.estado || '',
         usuario: parametros?.usuario || '',
         parametro: parametros?.parametro || '',
+        activo: parametros?.activo || ''
       },
       headers: this.getToken
     });
@@ -55,9 +56,9 @@ export class MovimientosInternosService {
     });
   }
 
-  // Baja de movimiento
-  bajaMovimiento(id: string): Observable<any> {
-    return this.http.put(`${base_url}/movimientos-internos/baja-movimiento/${id}`, {
+  // Alta/Baja de movimiento
+  altaBajaMovimiento(id: string): Observable<any> {
+    return this.http.put(`${base_url}/movimientos-internos/alta-baja-movimiento/${id}`, {}, {
       headers: this.getToken
     });
   }

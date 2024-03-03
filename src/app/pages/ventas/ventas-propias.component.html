@@ -694,7 +694,7 @@
                 </tr>
               </thead>
               <tbody *ngIf="ventas">
-                <tr [ngClass]="{'bg-red-50 border-b':!venta.cancelada}" class="animate__animated animate__fadeIn"
+                <tr [ngClass]="{'bg-red-50':!venta.activo}" class="animate__animated animate__fadeIn"
                   *ngFor="let venta of ventas | paginate: {itemsPerPage: cantidadItems, currentPage: paginaActual, totalItems: totalItems}">
                   <td class="px-5 py-2 border-b border-gray-200 text-xs text-center">
                     <span class="flex items-center justify-center text-gray-900 whitespace-no-wrap">

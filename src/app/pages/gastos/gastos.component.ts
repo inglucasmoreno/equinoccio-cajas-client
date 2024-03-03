@@ -265,7 +265,6 @@ export class GastosComponent implements OnInit {
 
   // Alta/Baja de gasto
   altaBajaGasto(gasto: any): void {
-
     this.alertService.question({ msg: gasto.activo ? 'Baja de gasto' : 'Alta de gasto', buttonText: gasto.activo ? 'Baja' : 'Alta' })
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
@@ -277,12 +276,12 @@ export class GastosComponent implements OnInit {
           }
           this.gastosService.altaBajaGasto(gasto._id, data).subscribe({
             next: () => {
-              this.listarGastos();
+              this.cambiarPagina(1);
+              this.authService.getCaja();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
         }
       });
-
   }
 
   // Reiniciando formulario
