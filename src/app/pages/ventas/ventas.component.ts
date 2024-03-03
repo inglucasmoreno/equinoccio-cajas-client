@@ -318,9 +318,10 @@ export class VentasComponent implements OnInit {
   actualizarObservacion(): void {
     this.alertService.loading();
     const data = {
-      observacion: this.observacion,
+      observacion: this.observacion.toLocaleUpperCase(),
       updatorUser: this.authService.usuario.userId
     };
+    console.log(data);
     this.ventasService.actualizarVenta(this.ventaSeleccionada._id, data).subscribe(() => {
       this.observacionActualizadaFlag = true;
       this.listarVentas();

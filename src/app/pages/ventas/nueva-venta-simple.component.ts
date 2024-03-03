@@ -216,7 +216,7 @@ export class NuevaVentaSimpleComponent implements OnInit {
             cancelada: true,
             deuda_monto: 0,
             cliente_descripcion: dataCliente.descripcion,
-            observacion: this.observacion,
+            observacion: this.observacion.toLocaleUpperCase(),
             cliente_tipo_identificacion: dataCliente.tipo_identificacion,
             cliente_identificacion: dataCliente.identificacion,
             cliente_direccion: dataCliente.direccion,
