@@ -277,6 +277,7 @@ export class GastosComponent implements OnInit {
           }
           this.gastosService.altaBajaGasto(gasto._id, data).subscribe({
             next: () => {
+              this.authService.getCaja();
               this.listarGastos();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
