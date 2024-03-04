@@ -336,6 +336,12 @@ export class MovimientosInternosComponent implements OnInit {
 
   // Alta/Baja - Movimiento
   altaBajaMovimiento(movimiento: any): void {
+
+    const data = {
+      creatorUser: this.authService.usuario.userId,
+      updatorUser: this.authService.usuario.userId,
+    };
+
     this.alertService.question({
       msg: movimiento.activo ? 'Baja de movimiento' : 'Alta de movimiento',
       buttonText: movimiento.activo ? 'Baja' : 'Alta'
@@ -343,7 +349,7 @@ export class MovimientosInternosComponent implements OnInit {
       .then(({ isConfirmed }) => {
         if (isConfirmed) {
           this.alertService.loading();
-          this.movimientosInternosService.altaBajaMovimiento(movimiento._id).subscribe({
+          this.movimientosInternosService.altaBajaMovimiento(movimiento._id, data).subscribe({
             next: () => {
               this.authService.getCaja();
               this.cambiarPagina(1);

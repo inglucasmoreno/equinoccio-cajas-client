@@ -57,8 +57,8 @@ export class MovimientosInternosService {
   }
 
   // Alta/Baja de movimiento
-  altaBajaMovimiento(id: string): Observable<any> {
-    return this.http.put(`${base_url}/movimientos-internos/alta-baja-movimiento/${id}`, {}, {
+  altaBajaMovimiento(id: string, data: any): Observable<any> {
+    return this.http.put(`${base_url}/movimientos-internos/alta-baja-movimiento/${id}`, data, {
       headers: this.getToken
     });
   }
