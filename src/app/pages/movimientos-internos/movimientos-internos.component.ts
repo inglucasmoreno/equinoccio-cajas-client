@@ -13,6 +13,9 @@ import { MovimientosInternosService } from 'src/app/services/movimientos-interno
 })
 export class MovimientosInternosComponent implements OnInit {
 
+  // Flags
+  public textoCompleto: boolean = false;
+
   // Permisos de usuarios login
   public permisos = { all: false };
 

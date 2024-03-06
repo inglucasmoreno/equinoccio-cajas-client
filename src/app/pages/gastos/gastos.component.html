@@ -186,23 +186,23 @@
                                 <tr class="border">
                                     <th
                                         class="px-5 py-2 border-b-2 border-gray-200 bg-gray-100 text-left text-sm font-semibold text-gray-900 tracking-wider">
-                                        <div (click)="ordenarPorColumna('nro')"
+                                        <div (click)="ordenarPorColumna('numero')"
                                             class="cursor-pointer flex w-max items-center focus:outline-none">
-                                            <span> Nro de gasto </span>
+                                            <span> Nro </span>
                                             <span class="ml-2 text-gray-600">
-                                                <svg *ngIf="ordenar.columna == 'nro' && ordenar.direccion == 1"
+                                                <svg *ngIf="ordenar.columna == 'numero' && ordenar.direccion == 1"
                                                     width="15" height="15" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" class="feather feather-chevron-down">
                                                     <polyline points="6 9 12 15 18 9"></polyline>
                                                 </svg>
-                                                <svg *ngIf="ordenar.columna == 'nro' && ordenar.direccion == -1"
+                                                <svg *ngIf="ordenar.columna == 'numero' && ordenar.direccion == -1"
                                                     width="15" height="15" viewBox="0 0 24 24" fill="none"
                                                     stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                                     stroke-linejoin="round" class="feather feather-chevron-up">
                                                     <polyline points="18 15 12 9 6 15"></polyline>
                                                 </svg>
-                                                <svg *ngIf="ordenar.columna != 'nro'" width="15" height="15"
+                                                <svg *ngIf="ordenar.columna != 'numero'" width="15" height="15"
                                                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                                     stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                                     class="feather feather-minus">
@@ -216,7 +216,7 @@
                                         <div (click)="ordenarPorColumna('fecha_gasto')"
                                             class="cursor-pointer w-max flex items-center justify-center focus:outline-none">
                                             <span>
-                                                Fecha de gasto
+                                                Fecha
                                             </span>
                                             <span class="ml-2">
                                                 <svg *ngIf="ordenar.columna == 'fecha_gasto' && ordenar.direccion == 1"
@@ -357,7 +357,7 @@
                             <tbody *ngIf="gastos">
                                 <tr [ngClass]="{'bg-red-50':!gasto.activo}" class="animate__animated animate__fadeIn"
                                     *ngFor="let gasto of gastos | paginate: {itemsPerPage: cantidadItems, currentPage: paginaActual, totalItems: totalItems}">
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
+                                    <td class="px-5 py-2 border-b border-red-200 text-xs">
                                         <p class="text-gray-900 w-max whitespace-no-wrap">
                                             {{ gasto.numero }}
                                         </p>
@@ -372,9 +372,9 @@
                                             {{ gasto.tipo_gasto.descripcion }}
                                         </p>
                                     </td>
-                                    <td class="px-5 py-2 border-b border-gray-200 text-xs">
-                                        <p class="text-gray-900 whitespace-no-wrap">
-                                            {{ gasto.observacion || '-' }}
+                                    <td (click)="textoCompleto = !textoCompleto" [title]="gasto.observacion" class="px-5 text-gray-900 hover:text-secondaryColor cursor-pointer py-2 border-b border-gray-200 text-xs">
+                                        <p class="whitespace-no-wrap">
+                                            {{ !textoCompleto ? (gasto.observacion || '-' | limitString:20) :( gasto.observacion || '-') }}
                                         </p>
                                     </td>
                                     <td class="px-5 py-2 border-b border-gray-200 text-xs">

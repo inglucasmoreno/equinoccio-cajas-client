@@ -22,8 +22,10 @@ const base_url = environment.base_url;
 })
 export class VentasPropiasComponent implements OnInit {
 
-  // Compra
+  // Flags
+  public textoCompleto: boolean = false;
 
+  // Compra
   public showModalCompra = false;
 
   // Reportes

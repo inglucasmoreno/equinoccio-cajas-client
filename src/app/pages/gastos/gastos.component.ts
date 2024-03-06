@@ -15,6 +15,9 @@ import { TiposGastosService } from 'src/app/services/tipos-gastos.service';
 })
 export class GastosComponent implements OnInit {
 
+  // Flags
+  public textoCompleto: boolean = false;
+
   // Cajas
   public cajas: any = [];
 

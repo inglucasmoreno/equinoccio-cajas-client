@@ -742,9 +742,9 @@
                       {{ venta.fecha_venta ? (venta.fecha_venta | fecha) : (venta.createdAt | fecha) }}
                     </p>
                   </td>
-                  <td class="px-5 py-2 border-b border-gray-200 text-xs">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      {{ venta.observacion || '-' }}
+                  <td [title]="venta.observacion" (click)="textoCompleto = !textoCompleto" class="px-5 py-2 border-b cursor-pointer text-gray-900 hover:text-secondaryColor border-gray-200 text-xs">
+                    <p class="whitespace-no-wrap">
+                      {{ !textoCompleto ? (venta.observacion || '-' | limitString:20) : (venta.observacion || '-') }}
                     </p>
                   </td>
                   <!-- <td class="px-5 py-2 border-b border-gray-200 text-xs">

@@ -317,9 +317,9 @@
                       {{ movimiento.nro }}
                     </p>
                   </td>
-                  <td class="px-5 py-2 border-b border-gray-200 text-xs">
-                    <p class="text-gray-900 whitespace-no-wrap">
-                      {{ movimiento.observacion.trim() !== '' ? movimiento.observacion : '-' }}
+                  <td [title]="movimiento.observacion" (click)="textoCompleto = !textoCompleto" class="px-5 hover:text-secondaryColor py-2 border-b cursor-pointer border-gray-200 text-gray-900 text-xs">
+                    <p class="whitespace-no-wrap ">
+                      {{ !textoCompleto ? (movimiento.observacion.trim() || '-' | limitString:20) : movimiento.observacion.trim() || '-' }}
                     </p>
                   </td>
                   <td class="px-5 py-2 border-b border-gray-200 text-xs">
