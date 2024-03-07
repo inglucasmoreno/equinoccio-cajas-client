@@ -836,7 +836,7 @@
                     <div (click)="ordenarPorColumna('createdAt')"
                       class="cursor-pointer w-max flex items-center justify-center focus:outline-none">
                       <span>
-                        Fecha de creación
+                        Fecha
                       </span>
                       <span class="ml-2">
                         <svg *ngIf="ordenar.columna == 'createdAt' && ordenar.direccion == 1" width="15" height="15"
@@ -862,7 +862,7 @@
                     <div (click)="ordenarPorColumna('nro')"
                       class="cursor-pointer w-max flex items-center justify-center focus:outline-none">
                       <span>
-                        Número
+                        Nro
                       </span>
                       <span class="ml-2">
                         <svg *ngIf="ordenar.columna == 'nro' && ordenar.direccion == 1" width="15" height="15"
@@ -1030,9 +1030,9 @@
                       {{ movimiento.descripcion }}
                     </p>
                   </td>
-                  <td class="px-5 py-2 border-b border-gray-200 text-xs">
+                  <td (click)="textoCompleto = !textoCompleto" [title]="movimiento.observaciones_personalizadas" class="px-5 text-gray-900 hover:text-secondaryColor cursor-pointer py-2 border-b border-gray-200 text-xs">
                     <p class="text-gray-900 w-max whitespace-no-wrap">
-                      {{ movimiento.observaciones_personalizadas || '-' }}
+                      {{ !textoCompleto ? (movimiento.observaciones_personalizadas || '-' | limitString:20) : (movimiento.observaciones_personalizadas || '-') }}
                     </p>
                   </td>
                   <td class="px-5 py-2 border-b border-gray-200 text-xs">

@@ -35,6 +35,9 @@ const base_url = environment.base_url;
 })
 export class CajasMovimientosComponent implements OnInit {
 
+  // Flags
+  public textoCompleto: boolean = false;
+
   // Fechas
   public reportes = {
     fechaDesde: '',
