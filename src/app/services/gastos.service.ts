@@ -43,6 +43,8 @@ export class GastosService {
         registerpp: parametros?.cantidadItems || 100000,
         activo: parametros?.activo || '',
         parametro: parametros?.parametro || '',
+        caja: parametros?.caja || '',
+        tipo_gasto: parametros?.tipo_gasto || ''
       },
       headers: this.getToken
     });

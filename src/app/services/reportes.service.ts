@@ -157,4 +157,14 @@ export class ReportesService {
     });
   }
 
+  // Reporte -> Gastos
+  gastosExcel(parametros: any): Observable<any> {
+    return this.http.get(`${base_url}/reportes/excel/gastos`, {
+      headers: this.getToken,
+      responseType: 'blob',
+      observe: 'response',
+      params: parametros
+    });
+  }
+
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { format } from 'date-fns';
 import { AlertService } from 'src/app/services/alert.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { CajasService } from 'src/app/services/cajas.service';
 import { DataService } from 'src/app/services/data.service';
 import { GastosService } from 'src/app/services/gastos.service';
+import { ReportesService } from 'src/app/services/reportes.service';
 import { TiposGastosService } from 'src/app/services/tipos-gastos.service';
+import { saveAs } from 'file-saver-es';
+import { format } from 'date-fns';
 
 @Component({
   selector: 'app-gastos',
@@ -15,17 +17,25 @@ import { TiposGastosService } from 'src/app/services/tipos-gastos.service';
 })
 export class GastosComponent implements OnInit {
 
+  // Fechas
+  public reportes = {
+    fechaDesde: '',
+    fechaHasta: '',
+  };
+
   // Flags
   public textoCompleto: boolean = false;
 
   // Cajas
   public cajas: any = [];
+  public cajasListado: any = [];
 
   // Permisos de usuarios login
   public permisos = { all: false };
 
   // Modal
   public showModalGasto = false;
+  public showModalReporte = false;
 
   // Estado formulario
   public estadoFormulario = 'crear';
@@ -42,6 +52,7 @@ export class GastosComponent implements OnInit {
     observacion: ''
   }
   public tiposGastos: any[] = []
+  public tiposGastosListado: any[] = []
 
   // Paginacion
   public totalItems: number;
@@ -52,7 +63,9 @@ export class GastosComponent implements OnInit {
   // Filtrado
   public filtro = {
     activo: 'true',
-    parametro: ''
+    parametro: '',
+    caja: '',
+    tipo_gasto: ''
   }
 
   // Ordenar
@@ -65,6 +78,7 @@ export class GastosComponent implements OnInit {
     private gastosService: GastosService,
     private tiposGastosService: TiposGastosService,
     private cajasService: CajasService,
+    private reportesService: ReportesService,
     public authService: AuthService,
     private alertService: AlertService,
     private dataService: DataService) { }
@@ -82,6 +96,7 @@ export class GastosComponent implements OnInit {
     this.cajasService.listarCajas().subscribe({
       next: ({ cajas }) => {
 
+        this.cajasListado = cajas.filter(caja => caja._id !== '000000000000000000000000' && caja._id !== '222222222222222222222222');
         this.cajas = cajas.filter(caja => caja.activo && caja._id !== '222222222222222222222222');
 
         if (this.authService.usuario.role !== 'ADMIN_ROLE')
@@ -90,6 +105,7 @@ export class GastosComponent implements OnInit {
         // Listando tipos de gastos
         this.tiposGastosService.listarTipos().subscribe({
           next: ({ tipos }) => {
+            this.tiposGastosListado = tipos;
             this.tiposGastos = tipos.filter(tipo => tipo.activo);
             this.listarGastos();
           }, error: ({ error }) => this.alertService.errorApi(error.message)
@@ -153,6 +169,8 @@ export class GastosComponent implements OnInit {
       cantidadItems: this.cantidadItems,
       activo: this.filtro.activo,
       parametro: this.filtro.parametro,
+      caja: this.filtro.caja,
+      tipo_gasto: this.filtro.tipo_gasto
     }
     this.gastosService.listarGastos(parametros)
       .subscribe(({ gastos, totalItems }) => {
@@ -195,21 +213,21 @@ export class GastosComponent implements OnInit {
 
     this.cajasService.getCaja(this.dataGasto.caja).subscribe({
       next: ({ caja }) => {
-        if(caja.saldo < this.dataGasto.monto){
+        if (caja.saldo < this.dataGasto.monto) {
           this.alertService.close();
           this.alertService.question({ msg: 'La caja no tiene suficiente dinero', buttonText: 'Continuar' })
-          .then(({isConfirmed}) => {
-            if (isConfirmed) {
-              this.alertService.loading();
-              this.gastosService.nuevoGasto(data).subscribe(() => {
-                this.listarGastos();
-                this.authService.getCaja();
-              }, ({ error }) => {
-                this.alertService.errorApi(error.message);
-              });
-            }
-          });
-        }else{
+            .then(({ isConfirmed }) => {
+              if (isConfirmed) {
+                this.alertService.loading();
+                this.gastosService.nuevoGasto(data).subscribe(() => {
+                  this.listarGastos();
+                  this.authService.getCaja();
+                }, ({ error }) => {
+                  this.alertService.errorApi(error.message);
+                });
+              }
+            });
+        } else {
           this.gastosService.nuevoGasto(data).subscribe(() => {
             this.listarGastos();
             this.authService.getCaja();
@@ -283,6 +301,38 @@ export class GastosComponent implements OnInit {
               this.authService.getCaja();
             }, error: ({ error }) => this.alertService.errorApi(error.message)
           });
+        }
+      });
+  }
+
+  abrirReporte(): void {
+    this.showModalReporte = true;
+    this.reportes.fechaDesde = '';
+    this.reportes.fechaHasta = '';
+  }
+
+  // Generar reporte
+  generarReporte(): void {
+    this.alertService.question({ msg: 'Generando reporte', buttonText: 'Aceptar' })
+      .then(({ isConfirmed }) => {
+        if (isConfirmed) {
+          this.alertService.loading();
+          const dataReportes = {
+            fechaDesde: this.reportes.fechaDesde,
+            fechaHasta: this.reportes.fechaHasta,
+            activo: this.filtro.activo,
+            parametro: this.filtro.parametro,
+            tipo_gasto: this.filtro.tipo_gasto,
+            caja: this.filtro.caja
+          };
+          this.reportesService.gastosExcel(dataReportes).subscribe({
+            next: (buffer) => {
+              const blob = new Blob([buffer.body], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+              saveAs(blob, `Reporte - Gastos - ${format(new Date(), 'dd-MM-yyyy')}`);
+              this.showModalReporte = false;
+              this.alertService.close();
+            }, error: ({ error }) => this.alertService.errorApi(error.message)
+          })
         }
       });
   }
