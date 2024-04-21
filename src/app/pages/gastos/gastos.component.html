@@ -146,6 +146,7 @@
           </div>
           <div class="flex items-center" *ngIf="permisos.all || authService.usuario.role === 'EMPLOYEE_ROLE'">
             <button
+              *ngIf="authService.usuario.role === 'ADMIN_ROLE'"
               class="p-2 border mr-3 focus:outline-none hover:text-secondaryColor border-gray-300 bg-white rounded shadow"
               (click)="abrirReporte()" title="Generar reporte">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -197,7 +198,7 @@
               <option value=""> Todos los tipos </option>
               <option *ngFor="let tipo of tiposGastosListado" [value]="tipo._id"> {{ tipo.descripcion }} </option>
             </select>
-            <select (change)="cambiarCantidadItems()" [(ngModel)]="filtro.caja"
+            <select *ngIf="authService.usuario.role === 'ADMIN_ROLE'" (change)="cambiarCantidadItems()" [(ngModel)]="filtro.caja"
               class="bg-white w-full md:w-40 text-sm focus:outline-none px-2 py-2 md:py-0 md:ml-2 mt-2 md:mt-0 border text-gray-600 border-gray-400 rounded">
               <option value=""> Todas las cajas </option>
               <option *ngFor="let caja of cajasListado" [value]="caja._id"> {{ caja.descripcion }} </option>
