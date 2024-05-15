@@ -43,6 +43,7 @@ export class GastosService {
         registerpp: parametros?.cantidadItems || 100000,
         activo: parametros?.activo || '',
         parametro: parametros?.parametro || '',
+        factura: parametros?.factura || '',
         caja: parametros?.caja || '',
         tipo_gasto: parametros?.tipo_gasto || ''
       },

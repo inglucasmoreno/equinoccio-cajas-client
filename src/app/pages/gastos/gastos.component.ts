@@ -46,6 +46,7 @@ export class GastosComponent implements OnInit {
   public gastoSeleccionado: any;
   public dataGasto = {
     fecha_gasto: format(new Date(), 'yyyy-MM-dd'),
+    factura: 'false',
     caja: '',
     tipo_gasto: '',
     monto: null,
@@ -63,6 +64,7 @@ export class GastosComponent implements OnInit {
   // Filtrado
   public filtro = {
     activo: 'true',
+    factura: '',
     parametro: '',
     caja: '',
     tipo_gasto: ''
@@ -126,6 +128,7 @@ export class GastosComponent implements OnInit {
     this.reiniciarFormulario();
     this.dataGasto = {
       fecha_gasto: format(new Date(), 'yyyy-MM-dd'),
+      factura: 'false',
       caja: this.authService.caja ? this.authService.caja._id.toString() : '',
       tipo_gasto: '',
       monto: null,
@@ -147,6 +150,7 @@ export class GastosComponent implements OnInit {
     this.gastosService.getGasto(gasto._id).subscribe(({ gasto }) => {
       this.dataGasto = {
         fecha_gasto: format(new Date(gasto.fecha_gasto), 'yyyy-MM-dd'),
+        factura: gasto.factura ? 'true' : 'false',
         caja: gasto.caja._id,
         tipo_gasto: gasto.tipo_gasto._id,
         monto: gasto.monto,
@@ -169,6 +173,7 @@ export class GastosComponent implements OnInit {
       cantidadItems: this.cantidadItems,
       activo: this.filtro.activo,
       parametro: this.filtro.parametro,
+      factura: this.filtro.factura,
       caja: this.filtro.caja,
       tipo_gasto: this.filtro.tipo_gasto
     }
@@ -322,6 +327,7 @@ export class GastosComponent implements OnInit {
             fechaHasta: this.reportes.fechaHasta,
             activo: this.filtro.activo,
             parametro: this.filtro.parametro,
+            factura: this.filtro.factura,
             tipo_gasto: this.filtro.tipo_gasto,
             caja: this.filtro.caja
           };
@@ -341,6 +347,7 @@ export class GastosComponent implements OnInit {
   reiniciarFormulario(): void {
     this.dataGasto = {
       fecha_gasto: format(new Date(), 'yyyy-MM-dd'),
+      factura: 'false',
       caja: '',
       tipo_gasto: '',
       monto: null,
