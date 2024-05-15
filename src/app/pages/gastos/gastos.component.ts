@@ -316,7 +316,21 @@ export class GastosComponent implements OnInit {
     this.reportes.fechaHasta = '';
   }
 
-  // Generar reporte
+  actualizarFactura(): void {
+    const data = { factura: this.dataGasto.factura };
+    this.alertService.loading();
+    this.gastosService.actualizarGasto(this.idGasto, data).subscribe({
+      next: ({ gasto }) => {
+        // Se actualizar el gasto del listado de gastos con el nuevo valor de factura
+        this.gastos = this.gastos.map(elemento => {
+          if (elemento._id === this.idGasto) elemento.factura = gasto.factura;
+          return elemento;
+        });
+        this.alertService.success('Gasto actualizado correctamente');
+      }, error: ({ error }) => this.alertService.errorApi(error.message)
+    })
+  }
+
   generarReporte(): void {
     this.alertService.question({ msg: 'Generando reporte', buttonText: 'Aceptar' })
       .then(({ isConfirmed }) => {

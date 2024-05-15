@@ -308,6 +308,29 @@
     </div>
     <p class="mt-2"> <span class="font-semibold"> Monto: </span> <span> ${{ gastoSeleccionado?.monto | moneda }} </span>
     </p>
+    <div class="mt-2 flex items-center">
+      <p class="font-semibold"> Factura: </p>
+      <p *ngIf="gastoSeleccionado?.factura === true" class="text-xs flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-5 h-5 ml-1 text-green-700">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+        </svg>
+        <span class="ml-1"> (Con factura) </span>
+      </p>
+      <p *ngIf="gastoSeleccionado?.factura === false" class="text-xs flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="w-5 h-5 ml-1 text-red-700">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+        </svg>
+        <span class="ml-1"> (Sin factura) </span>
+      </p>
+      <p *ngIf="gastoSeleccionado?.factura === undefined" class="text-xs flex items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 ml-1 text-gray-700">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+        </svg>
+        <span class="ml-1"> (Indefinido) </span>
+      </p>
+    </div>
     <p class="mt-2"> <span class="font-semibold"> Tipo de gasto: </span> <span> {{
         gastoSeleccionado?.tipo_gasto.descripcion }} </span> </p>
     <p *ngIf="gastoSeleccionado?.observacion.trim() !== ''" class="mt-2"> <span class="font-semibold"> Observación:
@@ -812,13 +835,13 @@
                 <option value="50"> 50 elementos </option>
                 <option value="100"> 100 elementos </option>
               </select>
-              <button
-                (click)="textoCompleto = !textoCompleto"
-                title="Vista completa de tabla"
+              <button (click)="textoCompleto = !textoCompleto" title="Vista completa de tabla"
                 [ngClass]="{'bg-yellow-50 border-yellow-400':textoCompleto, 'bg-white border-gray-400':!textoCompleto}"
                 class="p-2 focus:outline-none border text-gray-800 mt-2 md:mt-0 border-gray-400 w-max hover:text-secondaryColor ml-2 rounded">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-5 h-5">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                 </svg>
               </button>
             </div>
@@ -1041,9 +1064,11 @@
                       {{ movimiento.descripcion }}
                     </p>
                   </td>
-                  <td [title]="movimiento.observaciones_personalizadas" class="px-5 text-gray-900 hover:text-secondaryColor cursor-pointer py-2 border-b border-gray-200 text-xs">
+                  <td [title]="movimiento.observaciones_personalizadas"
+                    class="px-5 text-gray-900 hover:text-secondaryColor cursor-pointer py-2 border-b border-gray-200 text-xs">
                     <p class="text-gray-900 whitespace-no-wrap">
-                      {{ !textoCompleto ? (movimiento.observaciones_personalizadas || '-' | limitString:20) : (movimiento.observaciones_personalizadas || '-') }}
+                      {{ !textoCompleto ? (movimiento.observaciones_personalizadas || '-' | limitString:20) :
+                      (movimiento.observaciones_personalizadas || '-') }}
                     </p>
                   </td>
                   <td class="px-5 py-2 border-b border-gray-200 text-xs">

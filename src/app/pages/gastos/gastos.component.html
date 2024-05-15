@@ -55,7 +55,7 @@
         </div>
         <div class="md:w-1/2 md:ml-2 mt-2 md:mt-0">
           <p class="font-semibold"> <span class="text-red-500"> * </span> Factura </p>
-          <select [disabled]="estadoFormulario === 'editar'" [(ngModel)]="dataGasto.factura"
+          <select (change)="estadoFormulario === 'editar' ? actualizarFactura() : null" [(ngModel)]="dataGasto.factura"
             class="py-2 mt-1 bg-red-white border-b-2 border-gray-300 tranform duration-500 focus:border-secondaryColor outline-none w-full text-gray-800">
             <option value="false"> No </option>
             <option value="true"> Si </option>

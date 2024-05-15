@@ -214,6 +214,7 @@ export class CajasMovimientosComponent implements OnInit {
     }
     this.movimientosService.listarMovimientos(parametros)
       .subscribe(({ movimientos, totalItems }) => {
+        console.log(movimientos);
         this.movimientos = movimientos;
         this.totalItems = totalItems;
         this.showModalMovimiento = false;
